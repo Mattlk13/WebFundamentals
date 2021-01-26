@@ -1,8 +1,8 @@
-project_path: /web/tools/_project.yaml
-book_path: /web/tools/_book.yaml
+project_path: /web/tools/chrome-devtools/_project.yaml
+book_path: /web/tools/chrome-devtools/_book.yaml
 description: Get started with Google Chrome's built-in web developer tools.
 
-{# wf_updated_on: 2019-07-10 #}
+{# wf_updated_on: 2020-07-10 #}
 {# wf_published_on: 2016-03-28 #}
 {# wf_blink_components: Platform>DevTools #}
 
@@ -14,13 +14,13 @@ pages on-the-fly and diagnose problems quickly, which ultimately helps you build
 websites, faster.
 
 <div class="video-wrapper">
-  <iframe class="devsite-embedded-youtube-video" data-video-id="G_P6rpRSr4g"
+  <iframe class="devsite-embedded-youtube-video" data-video-id="VYyQv0CSZOE"
           data-autohide="1" data-showinfo="0" frameborder="0" allowfullscreen>
   </iframe>
 </div>
 
-With DevTools you can view and change any page. Even the Google homepage, as the video
-demonstrates.
+Check out the video for live demonstrations of core DevTools workflows, including debugging CSS,
+prototyping CSS, debugging JavaScript, and analyzing load performance.
 
 ## Open DevTools {: #open }
 
@@ -188,17 +188,9 @@ Debug mixed content issues, certificate problems, and more.
   }
 </style>
 
-The best place to file feature requests for Chrome DevTools is the mailing list.
-The team needs to understand use cases, gauge community interest, and discuss
-feasibility before implementing any new features.
+File bug reports and feature requests in Crbug, which is the engineering team's bug tracker.
 
-<a class="button button-primary gc-analytics-event cdt-but"
-   href="https://groups.google.com/forum/#!forum/google-chrome-developer-tools"
-   data-category="DevTools" data-label="Home / Mailing List">Mailing List</a>
-
-File bug reports in Crbug, which is the engineering team's bug tracker.
-
-<a class="button button-primary gc-analytics-event" href="https://crbug.com"
+<a class="button button-primary gc-analytics-event" href="https://crbug.com/new"
    data-category="DevTools" data-label="Home / Crbug">Crbug</a>
 
 If you want to alert us to a bug or feature request but don't have much time,

@@ -2,7 +2,7 @@ project_path: /web/_project.yaml
 book_path: /web/updates/_book.yaml
 description: An introduction to the new KV Storage API, built-in modules, and import maps.
 
-{# wf_updated_on: 2019-06-27 #}
+{# wf_updated_on: 2020-02-14 #}
 {# wf_published_on: 2019-03-11 #}
 {# wf_tags: chrome74, devtools, devtools-whatsnew #}
 {# wf_featured_image: /web/updates/images/generic/new-in-chrome.png #}
@@ -12,6 +12,9 @@ description: An introduction to the new KV Storage API, built-in modules, and im
 # KV Storage: the Web's First Built-in Module {: .page-title }
 
 {% include "web/_shared/contributors/philipwalton.html" %}
+
+Warning: KV Storage was originally launched as an origin trial. That trial has
+ended, and KV Storage is no longer available.
 
 Browser vendors and web performance experts have been saying for the better part
 of the last decade that [`localStorage` is
@@ -73,14 +76,14 @@ worker, or service worker), and they won't consume any memory or CPU unless
 they're actually imported. Furthermore, they don't run the risk of naming
 collisions with other variables defined in your code.
 
-To import a built-in module you use the prefix `std:` followed by the built-in
+To import a built-in module, you use the prefix `std:` followed by the built-in
 module's identifier. For example, in <a href="#browser-support">supported
 browsers</a>, you could import the KV Storage module with the following code
 (see below for [how to use a KV Storage polyfill in unsupported
 browsers](#what_if_a_browser_doesnt_support_a_built-in_module)):
 
 ```js
-import {storage, StorageArea} from 'std:kv-storage';
+import storage, {StorageArea} from 'std:kv-storage';
 ```
 
 ## The KV Storage module
@@ -105,12 +108,12 @@ and like `Map`, its keys do not have to be strings. They can be any
 Unlike `Map`, all KV Storage methods return either
 [promises](/web/fundamentals/primers/promises) or
 [async iterators](https://github.com/tc39/proposal-async-iteration) (since the
-main point of this module is it's not synchronous, in contrast to
+main point of this module is that it's not synchronous, in contrast to
 `localStorage`). To see the full API in detail, you can refer to the
 [specification](https://wicg.github.io/kv-storage/#storagearea).
 
 As you may have noticed from the code example above, the KV Storage module has
-two named exports: `storage` and `StorageArea`.
+one default export `storage` and one named export `StorageArea`.
 
 `storage` is an instance of the `StorageArea` class with the name `'default'`,
 and it's what developers will use most often in their application code. The
@@ -122,8 +125,11 @@ of the `StorageArea` instance.
 
 Here's an example of how to use the KV Storage module in your code:
 
+Warning: KV Storage was originally launched as an origin trial. That trial has
+ended, and KV Storage is no longer available.
+
 ```js
-import {storage} from 'std:kv-storage';
+import storage from 'std:kv-storage';
 
 const main = async () => {
   const oldPreferences = await storage.get('preferences');
@@ -192,19 +198,19 @@ module:
 
 <!-- Then any module scripts with import statements use the above map -->
 <script type="module">
-  import {storage} from '/path/to/kv-storage-polyfill.mjs';
+  import storage from '/path/to/kv-storage-polyfill.mjs';
 
   // Use `storage` ...
 </script>
 ```
 
-The key point in the above code is the URL `/path/to/kv-storage-polyfill.mjs`
+The key point in the above code is that the URL `/path/to/kv-storage-polyfill.mjs`
 is being mapped to _two_ different resources: `std:kv-storage` and then the
 original URL again, `/path/to/kv-storage-polyfill.mjs`.
 
 So when the browser encounters an import statement referencing that URL
 (`/path/to/kv-storage-polyfill.mjs`), it first tries to load `std:kv-storage`,
-and if it can't then it falls back to loading
+and if it can't, then it falls back to loading
 `/path/to/kv-storage-polyfill.mjs`.
 
 Again, the magic here is that the browser doesn't need to support import maps
@@ -223,12 +229,15 @@ Currently, [more than 80% of browsers support
 modules](https://caniuse.com/#feat=es6-module), and for browsers that don't,
 you can use the [module/nomodule
 technique](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/)
-to serve a legacy bundle to older browsers. Note that when generating your
+to serve a legacy bundle. Note that when generating your
 `nomodule` build, you'll need to include all polyfills because you know for sure
 that browsers that don't support modules will definitely not support built-in
 modules.
 
 ## KV Storage demo
+
+Warning: KV Storage was originally launched as an origin trial. That trial has
+ended, and KV Storage is no longer available.
 
 To illustrate that it's possible to use built-in modules while still supporting
 older browsers, I've put together a
@@ -242,7 +251,7 @@ techniques described above and runs in all browsers today:
   polyfill](https://github.com/GoogleChromeLabs/kv-storage-polyfill) (via the
   browser's module loader).
 * Browsers that support modules but do not support import maps also load the
-  KV Storage polyfill (via the browser's module loader)
+  KV Storage polyfill (via the browser's module loader).
 * Browsers that do not support modules at all get the KV Storage polyfill in
   their legacy bundle (loaded via `<script nomodule>`).
 
@@ -266,12 +275,12 @@ Feel free to take a look if you're curious to see how it's built.
 </aside>
 
 In order to actually see the native built-in module in action, you have to load
-the demo in Chrome 74 (currently Chrome Dev or Canary) with the experimental web
+the demo in Chrome 74 or later with the experimental web
 platform features flag turned on
 (`chrome://flags/#enable-experimental-web-platform-features`).
 
 You can verify that the built-in module is being loaded because you won't see
-the polyfill script in the source panel in DevTools; instead you'll see the
+the polyfill script in the source panel in DevTools; instead, you'll see the
 built-in module version (fun fact: you can actually inspect the module's source
 code or even put breakpoints in it!):
 
@@ -285,8 +294,11 @@ code or even put breakpoints in it!):
 
 ## Please give us feedback
 
+Warning: KV Storage was originally launched as an origin trial. That trial has
+ended, and KV Storage is no longer available.
+
 This introduction should have given you a taste of what may be possible with
-built-in modules. And hopefully you're excited! We'd really love for developers
+built-in modules. And hopefully, you're excited! We'd really love for developers
 to try out the KV Storage module (as well as all the new features discussed
 here) and give us feedback.
 
@@ -305,5 +317,7 @@ trial](https://developers.chrome.com/origintrials/#/trials/active), you can
 actually deploy these features today. All your users should benefit from better
 storage performance, and Chrome 74+ users won't have to pay any extra download
 cost.
+
+{% include "web/_shared/helpful.html" %}
 
 {% include "web/_shared/rss-widget-updates.html" %}

@@ -21,10 +21,11 @@
     "eslint": "^4.12.0",
     "eslint-config-google": "^0.9.1",
     "gulp-remark": "^3.0.0",
+    "gulp-replace": "^1.0.0",
     "husky": "^0.14.3",
     "inquirer": "^3.3.0",
-    "jsdoc-baseline": "https://github.com/hegemonic/baseline/tarball/222e13a",
-    "workbox-build": "^4.3.1"
+    "jsdoc-baseline": "^0.1.5",
+    "workbox-build": "^6.0.2"
   },
   "private": true,
   "dependencies": {
@@ -38,6 +39,7 @@
     "globule": "^1.0.0",
     "googleapis": "^31.0.2",
     "gulp": "^3.9.1",
+    "gulp-cli": "^2.3.0",
     "gulp-rename": "^1.2.2",
     "gulp-util": "^3.0.7",
     "handlebars": "^4.0.5",
@@ -72,6 +74,6 @@
     "precommit": "gulp update-updated_on",
     "prepush": "npm test",
     "prestart": "gulp build",
-    "postinstall": "tools/update-resources.sh && gulp post-install"
+    "postinstall": "gulp post-install"
   }
 }

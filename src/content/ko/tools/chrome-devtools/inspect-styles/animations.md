@@ -1,8 +1,8 @@
-project_path: /web/tools/_project.yaml
-book_path: /web/tools/_book.yaml
+project_path: /web/tools/chrome-devtools/_project.yaml
+book_path: /web/tools/chrome-devtools/_book.yaml
 description: Chrome DevTools Animation Inspector로 애니메이션을 검사하고 수정합니다.
 
-{# wf_updated_on: 2016-05-02 #}
+{# wf_updated_on: 2020-12-14 #}
 {# wf_published_on: 2016-05-02 #}
 
 # 애니메이션 검사 {: .page-title }
@@ -80,7 +80,7 @@ Animation Inspector는 크게 네 개의 섹션(또는 창)으로 그룹이 지�
 트리거되는 경우, 페이지를 새로 고치면 Animation Inspector가 애니메이션을 
 감지하는 데 도움이 됩니다. 
 
-<video src="animations/capture-animations.mp4"
+<video src="animations-img/capture-animations.mp4"
        autoplay loop muted controls></video>
 
 ## 애니메이션 검사 {:#inspect}

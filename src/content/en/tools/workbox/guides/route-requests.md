@@ -2,7 +2,7 @@ project_path: /web/tools/workbox/_project.yaml
 book_path: /web/tools/workbox/_book.yaml
 description: A guide on how to route requests with Workbox.
 
-{# wf_updated_on: 2019-06-28 #}
+{# wf_updated_on: 2020-05-01 #}
 {# wf_published_on: 2017-11-15 #}
 {# wf_blink_components: N/A #}
 
@@ -32,7 +32,9 @@ request will use that route's handler.
 So we could define a route for '/logo.png' like so:
 
 ```javascript
-workbox.routing.registerRoute(
+import {registerRoute} from 'workbox-routing';
+
+registerRoute(
   '/logo.png',
   handler
 );
@@ -45,7 +47,9 @@ in most cases, that’s not what was intended. Instead, you’d need to define
 the entire URL to match.
 
 ```javascript
-workbox.routing.registerRoute(
+import {registerRoute} from 'workbox-routing';
+
+registerRoute(
   'https://some-other-origin.com/logo.png',
   handler
 );
@@ -61,12 +65,14 @@ be triggered. This provides a lot of flexibility as to how you use it.
 If we wanted to route specific file extensions, we could write routes such as:
 
 ```javascript
-workbox.routing.registerRoute(
+import {registerRoute} from 'workbox-routing';
+
+registerRoute(
   new RegExp('\\.js$'),
   jsHandler
 );
 
-workbox.routing.registerRoute(
+registerRoute(
   new RegExp('\\.css$'),
   cssHandler
 );
@@ -76,7 +82,9 @@ Or you can write regular expressions that test for a specific URL format: for
 example, a blog that follows the format `/blog/<year>/<month>/<post title slug>`:
 
 ```javascript
-workbox.routing.registerRoute(
+import {registerRoute} from 'workbox-routing';
+
+registerRoute(
   new RegExp('/blog/\\d{4}/\\d{2}/.+'),
   handler
 );
@@ -92,7 +100,9 @@ route that would match that general path pattern made against both same- and cro
 using a regular expression with a wildcard (`.+`) at the start is one approach:
 
 ```javascript
-workbox.routing.registerRoute(
+import {registerRoute} from 'workbox-routing';
+
+registerRoute(
   new RegExp('.+/blog/\\d{4}/\\d{2}/.+'),
   handler
 );
@@ -102,12 +112,14 @@ Similarly, if we wanted to take the previous examples that matched CSS or JS URL
 apply to both same- and cross-origin requests, they can be modified to add in a wildcard:
 
 ```javascript
-workbox.routing.registerRoute(
+import {registerRoute} from 'workbox-routing';
+
+registerRoute(
   new RegExp('.+\\.js$'),
   jsHandler
 );
 
-workbox.routing.registerRoute(
+registerRoute(
   new RegExp('.+\\.css$'),
   cssHandler
 );
@@ -116,19 +128,25 @@ workbox.routing.registerRoute(
 ## Matching a Route with a Callback Function
 
 To allow developers to do anything they want to match a request, you can also
-provide a function that can determine whether a request should match a route on
-any criteria it wishes.
+provide a [`matchCallback` function](/web/tools/workbox/reference-docs/latest/module-workbox-routing#~matchCallback)
+that can determine whether a request should match a route on any criteria it wishes.
 
-The callback will receive an object with the request's URL and the `FetchEvent`
-received in the service worker.
+The function is passed an
+[`ExtendableEvent`](https://developer.mozilla.org/en-US/docs/Web/API/ExtendableEvent),
+[`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request), and a
+[`URL` object](https://developer.mozilla.org/en-US/docs/Web/API/URL).
+You indicate a match by returning a truthy value.
+
+For a simple example, you could match against a specific URL like so:
 
 ```javascript
-const matchFunction = ({url, event}) => {
-  // Return true if the route should match
-  return false;
+import {registerRoute} from 'workbox-routing';
+
+const matchFunction = ({url, request, event}) => {
+  return url.href === 'https://example.com/app.js';
 };
 
-workbox.routing.registerRoute(
+registerRoute(
   matchFunction,
   handler
 );
@@ -139,7 +157,7 @@ request (i.e. provide a Response for the request).
 
 There are two ways you can  handle a request:
 
-1. Use one of Workbox’s strategies provided by `workbox.strategies`.
+1. Use one of Workbox’s strategies provided by [workbox-strategies](/web/tools/workbox/modules/workbox-strategies).
 1. Provide a callback function that returns a Promise that resolves to a
 `Response`.
 
@@ -148,53 +166,56 @@ There are two ways you can  handle a request:
 Most routes can be handled with one of the built in caching strategies.
 
 - Stale While Revalidate
-    - This strategy will use a cached response for a request if it is
-    available and update the cache in the background with a response form
-    the network. (If it’s not cached it will wait for the network response
-    and use that.) This is a fairly safe strategy as it means users are
-    regularly updating their cache. The downside of this strategy is that
-    it’s always requesting an asset from the network, using up the user’s
-    bandwidth.
+  - This strategy will use a cached response for a request if it is
+  available and update the cache in the background with a response from
+  the network. (If it’s not cached it will wait for the network response
+  and use that.) This is a fairly safe strategy as it means users are
+  regularly updating their cache. The downside of this strategy is that
+  it’s always requesting an asset from the network, using up the user’s
+  bandwidth.
 - Network First
-    - This will try to get a response from the network first. If it receives
-    a response, it’ll pass that to the browser and also save it to a cache.
-    If the network request fails, the last cached response will be used.
+  - This will try to get a response from the network first. If it receives
+  a response, it’ll pass that to the browser and also save it to a cache.
+  If the network request fails, the last cached response will be used.
 - Cache First
-    - This strategy will check the cache for a response first and use that
-    if one is available. If the request isn’t in the cache, the network will
-    be used and any valid response will be added to the cache before being
-    passed to the browser.
+  - This strategy will check the cache for a response first and use that
+  if one is available. If the request isn’t in the cache, the network will
+  be used and any valid response will be added to the cache before being
+  passed to the browser.
 - Network Only
-    - Force the response to come from the network.
+  - Force the response to come from the network.
 - Cache Only
-    - Force the response to come from the cache.
+  - Force the response to come from the cache.
 
 Using these as your `handler` can be done like so:
 
 ```javascript
-workbox.routing.registerRoute(
+import {registerRoute} from 'workbox-routing';
+import * as strategies from 'workbox-strategies';
+
+registerRoute(
   match,
-  new workbox.strategies.StaleWhileRevalidate()
+  new strategies.StaleWhileRevalidate()
 );
 
-workbox.routing.registerRoute(
+registerRoute(
   match,
-  new workbox.strategies.NetworkFirst()
+  new strategies.NetworkFirst()
 );
 
-workbox.routing.registerRoute(
+registerRoute(
   match,
-  new workbox.strategies.CacheFirst()
+  new strategies.CacheFirst()
 );
 
-workbox.routing.registerRoute(
+registerRoute(
   match,
-  new workbox.strategies.NetworkOnly()
+  new strategies.NetworkOnly()
 );
 
-workbox.routing.registerRoute(
+registerRoute(
   match,
-  new workbox.strategies.CacheOnly()
+  new strategies.CacheOnly()
 );
 ```
 
@@ -202,11 +223,13 @@ With each strategy you can customize the behavior of the Route by defining
 a custom cache to use and / or adding plugins.
 
 ```javascript
-new workbox.strategies.StaleWhileRevalidate({
+import {StaleWhileRevalidate} from 'workbox-strategies';
+
+new StaleWhileRevalidate({
    // Use a custom cache for this route.
   cacheName: 'my-cache-name',
 
-  // Add an array of custom plugins (like workbox.expiration.Plugin).
+  // Add an array of custom plugins (e.g. `ExpirationPlugin`).
   plugins: [
     ...
   ]
@@ -226,22 +249,28 @@ templating. For this you can provide an `async` function which returns a
 `event` (the `FetchEvent`) properties.
 
 ```javascript
+import {registerRoute} from 'workbox-routing';
+
 const handler = async ({url, event}) => {
   return new Response(`Custom handler response.`);
 };
 
-workbox.routing.registerRoute(match, handler);
+registerRoute(match, handler);
 ```
 
 One thing to note is that if you return a value in the `match` callback,
 it’ll be passed into the `handler` callback as a `params` argument.
 
 ```javascript
+import {registerRoute} from 'workbox-routing';
+
 const match = ({url, event}) => {
-  return {
-    name: 'Workbox',
-    type: 'guide',
-  };
+  if (url.pathname === '/example') {
+    return {
+      name: 'Workbox',
+      type: 'guide',
+    };
+  }
 };
 
 const handler = async ({url, event, params}) => {
@@ -251,7 +280,7 @@ const handler = async ({url, event, params}) => {
   );
 };
 
-workbox.routing.registerRoute(match, handler);
+registerRoute(match, handler);
 ```
 
 This may be helpful if there are pieces of information in the URL that can

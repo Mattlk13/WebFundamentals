@@ -3,7 +3,7 @@ book_path: /web/tools/workbox/_book.yaml
 description: The module guide for workbox-routing.
 
 {# wf_blink_components: N/A #}
-{# wf_updated_on: 2019-07-19 #}
+{# wf_updated_on: 2021-01-14 #}
 {# wf_published_on: 2017-11-27 #}
 
 # Workbox Routing {: .page-title }
@@ -39,52 +39,61 @@ expressions or Route instances.
 
 ## Matching and Handling in Routes
 
-A "route" in workbox is nothing more than two functions: a “matching” function
-to determine if the route should match a request and a “handling” function,
-which should handle the request and respond with a Response.
+A "route" in workbox is nothing more than two functions: a "matching" function
+to determine if the route should match a request and a "handling" function,
+which should handle the request and respond with a response.
 
-Workbox comes with some helpers that’ll perform the matching and handling for
-you, but if you ever find yourself wanting different behaviour, writing a
+Workbox comes with some helpers that'll perform the matching and handling for
+you, but if you ever find yourself wanting different behavior, writing a
 custom match and handler function is the best option.
 
-A match function will be given a `FetchEvent` and a URL object and you can
-match against a request by returning a truthy value. For a simple example,
-you could match against a specific URL like so:
+A
+[match callback function](/web/tools/workbox/reference-docs/latest/module-workbox-routing#~matchCallback)
+is passed a
+[`ExtendableEvent`](https://developer.mozilla.org/en-US/docs/Web/API/ExtendableEvent),
+[`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request), and a
+[`URL` object](https://developer.mozilla.org/en-US/docs/Web/API/URL) you can
+match by returning a truthy value. For a simple example, you could match against
+a specific URL like so:
 
 ```js
-const matchCb = ({url, event}) => {
+const matchCb = ({url, request, event}) => {
   return (url.pathname === '/special/url');
 };
 ```
 
 Most use cases can be covered by examining / testing either the `url` or the
-`event.request` to match against a Request.
+`request`.
 
-A "handler" will be given the URL and event as well and you can determine how
-to respond, whether it’s from the network, from the cache or generated in the
-service worker.
+A
+[handler callback function](/web/tools/workbox/reference-docs/latest/module-workbox-routing#~handlerCallback)
+will be given the same
+[`ExtendableEvent`](https://developer.mozilla.org/en-US/docs/Web/API/ExtendableEvent),
+[`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request), and
+[`URL` object](https://developer.mozilla.org/en-US/docs/Web/API/URL) along with
+a `params` value, which is the value returned by the "match" function.
 
 ```js
-const handlerCb = ({url, event, params}) => {
-  return fetch(event.request)
-  .then((response) => {
-    return response.text();
-  })
-  .then((responseBody) => {
-    return new Response(`${responseBody} <!-- Look Ma. Added Content. -->`);
+const handlerCb = async ({url, request, event, params}) => {
+  const response = await fetch(request);
+  const responseBody = await response.text();
+  return new Response(`${responseBody} <!-- Look Ma. Added Content. -->`, {
+    headers: response.headers,
   });
 };
 ```
 
-Your handler must return a Promise that resolves to a Response. The `params`
-value is the value returned by the "match" function. This may
-be useful if you parsed the URL or request and want to pass values into
-the “handler” for a matching request.
+Your handler must return a promise that resolves to a `Response`. In this
+example, we're using
+[`async` and `await`](/web/fundamentals/primers/async-functions).
+Under the hood, the return `Response` value will be wrapped in a promise.
 
 You can register these callbacks like so:
 
 ```js
-workbox.routing.registerRoute(matchCb, handlerCb);
+import {registerRoute} from 'workbox-routing';
+
+registerRoute(matchCb, handlerCb);
 ```
 
 The only limitation is that the "match" callback **must synchronously** return a truthy
@@ -92,23 +101,21 @@ value, you can’t perform any asynchronous work. The reason for this is that
 the `Router` must synchronously respond to the fetch event or allow falling
 through to other fetch events.
 
-The "handler" callback should return a Promise that resolves to a
-[Response](https://developer.mozilla.org/en-US/docs/Web/API/Response).
-Where that Response comes from is up to you; it could come from the
-network, from a cache, or it could be generated in the service worker.
-
 Normally the "handler" callback would use one of the strategies provided
 by [workbox-strategies](./workbox-strategies) like so:
 
 ```js
-workbox.routing.registerRoute(
+import {registerRoute} from 'workbox-routing';
+import {StaleWhileRevalidate} from 'workbox-strategies';
+
+registerRoute(
   matchCb,
-  new workbox.strategies.StaleWhileRevalidate()
+  new StaleWhileRevalidate()
 );
 ```
 
 In this page, we’ll focus on `workbox-routing` but you can
-[learn more about these strategies on workbox.strategies](./workbox-strategies).
+[learn more about these strategies on workbox-strategies](./workbox-strategies).
 
 ## How to Register a Regular Expression Route
 
@@ -116,7 +123,9 @@ A common practice is to use a regular expression instead of a "match" callback.
 Workbox makes this easy to implement like so:
 
 ```js
-workbox.routing.registerRoute(
+import {registerRoute} from 'workbox-routing';
+
+registerRoute(
   new RegExp('/styles/.*\\.css'),
   handlerCb
 );
@@ -156,44 +165,48 @@ to ensure it doesn’t cause unexpected behaviors in you web app.
 ## How to Register a Navigation Route
 
 If your site is a single page app, you can use a
-[NavigationRoute](/web/tools/workbox/reference-docs/latest/workbox.routing.NavigationRoute) to
+[NavigationRoute](/web/tools/workbox/reference-docs/latest/module-workbox-routing.NavigationRoute) to
 return a specific response for all
 [navigation requests](/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests).
 
 ```javascript
-workbox.routing.registerNavigationRoute(
-  // Assuming '/single-page-app.html' has been precached,
-  // look up its corresponding cache key.
-  workbox.precaching.getCacheKeyForURL('/single-page-app.html')
-);
+import {createHandlerBoundToURL} from 'workbox-precaching';
+import {NavigationRoute, registerRoute} from 'workbox-routing';
+
+// This assumes /app-shell.html has been precached.
+const handler = createHandlerBoundToURL('/app-shell.html');
+const navigationRoute = new NavigationRoute(handler);
+registerRoute(navigationRoute);
 ```
 
 Whenever a user goes to your site in the browser, the request for the page
 will be a navigation request and it will be served the cached page
-`/single-page-app.html`. (Note: You should have the page cached via
+`/app-shell.html`. (Note: You should have the page cached via
 `workbox-precaching` or through your own installation step.)
 
 By default, this will respond to *all* navigation requests. If you want to
-restrict it to respond to a subset of URLs, you can use the `whitelist`
-and `blacklist` options to restrict which pages will match this route.
+restrict it to respond to a subset of URLs, you can use the `allowlist`
+and `denylist` options to restrict which pages will match this route.
 
 ```javascript
-workbox.routing.registerNavigationRoute(
-  // Assuming '/single-page-app.html' has been precached,
-  // look up its corresponding cache key.
-  workbox.precaching.getCacheKeyForURL('/single-page-app.html'), {
-    whitelist: [
-      new RegExp('/blog/'),
-    ],
-    blacklist: [
-      new RegExp('/blog/restricted/'),
-    ],
-  }
-);
+import {createHandlerBoundToURL} from 'workbox-precaching';
+import {NavigationRoute, registerRoute} from 'workbox-routing';
+
+// This assumes /app-shell.html has been precached.
+const handler = createHandlerBoundToURL('/app-shell.html');
+const navigationRoute = new NavigationRoute(handler, {
+  allowlist: [
+    new RegExp('/blog/'),
+  ],
+  denylist: [
+    new RegExp('/blog/restricted/'),
+  ],
+});
+registerRoute(navigationRoute);
 ```
 
-The only thing to note is that the `blacklist` will win if a URL is in both
-the `whitelist` and `blacklist`.
+The only thing to note is that the `denylist` will win if a URL is in both
+the `allowlist` and `denylist`.
 
 ## Set a Default Handler
 
@@ -201,8 +214,10 @@ If you want to supply a "handler" for requests that don’t match a route, you
 can set a default handler.
 
 ```javascript
-workbox.routing.setDefaultHandler(({url, event, params}) => {
-  ...
+import {setDefaultHandler} from 'workbox-routing';
+
+setDefaultHandler(({url, event, params}) => {
+  // ...
 });
 ```
 
@@ -212,7 +227,9 @@ In the case of any of your routes throwing an error, you can capture and
 degrade gracefully by setting a catch handler.
 
 ```javascript
-workbox.routing.setCatchHandler(({url, event, params}) => {
+import {setCatchHandler} from 'workbox-routing';
+
+setCatchHandler(({url, event, params}) => {
   ...
 });
 ```
@@ -225,12 +242,14 @@ If you would like to route other requests, like a `POST` request, you need
 to define the method when registering the route, like so:
 
 ```javascript
-workbox.routing.registerRoute(
+import {registerRoute} from 'workbox-routing';
+
+registerRoute(
   matchCb,
   handlerCb,
   'POST'
 );
-workbox.routing.registerRoute(
+registerRoute(
   new RegExp('/api/.*\\.json'),
   handlerCb,
   'POST'
@@ -256,12 +275,14 @@ setting the log level.
 
 If you want to have more control over when the Workbox Router is given
 requests, you can create your own
-[Router](/web/tools/workbox/reference-docs/latest/workbox.routing.Router) instance and call
-it’s [`handleRequest()`](/web/tools/workbox/reference-docs/latest/workbox.routing.Router#handleRequest)
+[Router](/web/tools/workbox/reference-docs/latest/module-workbox-routing.Router) instance and call
+it’s [`handleRequest()`](/web/tools/workbox/reference-docs/latest/module-workbox-routing.Router#handleRequest)
 method whenever you want to use the router to respond to a request.
 
 ```javascript
-const router = new DefaultRouter();
+import {Router} from 'workbox-routing';
+
+const router = new Router();
 self.addEventListener('fetch', (event) => {
   const responsePromise = router.handleRequest(event);
   if (responsePromise) {
@@ -277,7 +298,9 @@ When using the `Router` directly, you will also need to use the `Route` class,
 or any of the extending classes to register routes.
 
 ```javascript
-const router = new DefaultRouter();
+import {Route, RegExpRoute, NavigationRoute, Router} from 'workbox-routing';
+
+const router = new Router();
 router.registerRoute(new Route(matchCb, handlerCb));
 router.registerRoute(new RegExpRoute(new RegExp(...), handlerCb));
 router.registerRoute(new NavigationRoute(handlerCb));

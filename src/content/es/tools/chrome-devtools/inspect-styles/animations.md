@@ -1,8 +1,8 @@
-project_path: /web/tools/_project.yaml
-book_path: /web/tools/_book.yaml
+project_path: /web/tools/chrome-devtools/_project.yaml
+book_path: /web/tools/chrome-devtools/_book.yaml
 description: Inspecciona y modifica las animaciones con Animation Inspector de Chrome DevTools.
 
-{# wf_updated_on: 2016-05-02 #}
+{# wf_updated_on: 2020-12-14 #}
 {# wf_published_on: 2016-05-02 #}
 
 # Inspeccionar animaciones {: .page-title }
@@ -80,7 +80,7 @@ mientras Animation Inspector está abierto. Si se activa una animación al carga
 la página, puedes ayudar a Animation Inspector a detectar la animación 
 volviendo a cargarla. 
 
-<video src="animations/capture-animations.mp4"
+<video src="animations-img/capture-animations.mp4"
        autoplay loop muted controls></video>
 
 ## Inspeccionar animaciones {:#inspect}

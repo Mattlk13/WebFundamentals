@@ -2,7 +2,7 @@ project_path: /web/_project.yaml
 book_path: /web/updates/_book.yaml
 description: A round up of the deprecations and removals in Chrome 74 to help you plan.
 
-{# wf_updated_on: 2019-06-26 #}
+{# wf_updated_on: 2020-03-11 #}
 {# wf_published_on: 2019-03-22 #}
 {# wf_tags: deprecations,removals,chrome74 #}
 {# wf_blink_components: Blink,Security,Internals>Network>FTP,Internals>Network>SSL,Blink>Payments #}
@@ -17,6 +17,15 @@ description: A round up of the deprecations and removals in Chrome 74 to help yo
 
 ## Removals
 
+### Disallow opener navigation downloads from cross origin popups
+
+If a popup navigates its opener to a URL which results in a download, the
+download will be blocked and the navigation cancelled, if the popup is
+cross-origin to its opener. This resolves a long standing security issue.
+
+[Chrome Platform Status](https://www.chromestatus.com/feature/5742188281462784) &#124;
+[Chromium Bug](http://crbug.com/932209)
+
 ### Remove PaymentAddress's languageCode property
 
 The `PaymentAddress.languageCode` property has been removed from the Payment
@@ -29,16 +38,6 @@ enough for safe removal.
 [Intent to Remove](https://groups.google.com/a/chromium.org/d/topic/blink-reviews/aBGjyKqok50/discussion) &#124;
 [Chrome Platform Status](https://www.chromestatus.com/feature/4992562146312192) &#124;
 [Chromium Bug](https://bugs.chromium.org/p/chromium/issues/detail?id=877521)
-
-### Don't allow popups during page unload
-
-Pages may no longer use `window.open()` to open a new page during unload. The
-Chrome popup blocker already prohibited this, but now it is prohibited whether
-or not the popup blocker is enabled.
-
-[Intent to Remove](https://crbug.com/844455) &#124;
-[Chromestatus Tracker](https://www.chromestatus.com/feature/5989473649164288) &#124;
-[Chromium Bug](https://groups.google.com/a/chromium.org/d/topic/blink-dev/MkA0A1YKSw4/discussion)
 
 ## Deprecations
 

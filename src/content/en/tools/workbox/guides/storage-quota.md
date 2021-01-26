@@ -2,7 +2,7 @@ project_path: /web/tools/workbox/_project.yaml
 book_path: /web/tools/workbox/_book.yaml
 description: A guide on configuring Workbox to avoid storage quota issues.
 
-{# wf_updated_on: 2019-07-02 #}
+{# wf_updated_on: 2020-05-01 #}
 {# wf_published_on: 2018-06-26 #}
 {# wf_blink_components: N/A #}
 
@@ -15,23 +15,28 @@ avoid running into storage quota limitations.
 
 ## What configuration options are supported?
 
-When setting up a route and runtime caching strategy, you can add in an instance of the
-[`workbox.expiration.Plugin`](/web/tools/workbox/reference-docs/latest/workbox.expiration.Plugin)
-configured with settings that make the most sense for the type of assets you're caching.
+When setting up a route and runtime caching strategy, you can add in an instance
+of `ExpirationPlugin` from
+[workbox-expiration](/web/tools/workbox/reference-docs/latest/module-workbox-expiration.ExpirationPlugin)
+configured with settings that make the most sense for the type of assets you're
+caching.
 
 For instance, the following configuration might be used for caching images at runtime, with both
 explicit limits as well as automatic cleanup if quota is exceeded:
 
 ```javascript
-workbox.routing.registerRoute(
-  // Match common image extensions.
-  new RegExp('\\.(?:png|gif|jpg|jpeg|svg)$'),
+import {registerRoute} from 'workbox-routing';
+import {CacheFirst} from 'workbox-strategies';
+import {ExpirationPlugin} from 'workbox-expiration';
+
+registerRoute(
+  ({request}) => request.destination === 'image',
   // Use a cache-first strategy with the following config:
-  new workbox.strategies.CacheFirst({
+  new CacheFirst({
     // You need to provide a cache name when using expiration.
     cacheName: 'images',
     plugins: [
-      new workbox.expiration.Plugin({
+      new ExpirationPlugin({
         // Keep at most 50 entries.
         maxEntries: 50,
         // Don't keep any entries for more than 30 days.
@@ -44,8 +49,8 @@ workbox.routing.registerRoute(
 );
 ```
 
-You need to set `maxEntries`, `maxAgeSeconds`, or both when using `workbox.expiration.Plugin`.
-`purgeOnQuotaError` is optional.
+You need to set `maxEntries`, `maxAgeSeconds`, or both when using
+`ExpirationPlugin`. `purgeOnQuotaError` is optional.
 
 ### maxEntries
 
@@ -104,5 +109,5 @@ contributing [around 7 megabytes](https://bugs.chromium.org/p/chromium/issues/de
 towards your quota usage.
 
 You can quickly use up much more quota than you'd anticipate once you start caching opaque
-responses, so the best practice is to use `workbox.expiration.Plugin` with `maxEntries`, and
+responses, so the best practice is to use `ExpirationPlugin` with `maxEntries`, and
 potentially `purgeOnQuotaError`, configured appropriately.

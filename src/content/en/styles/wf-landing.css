@@ -103,26 +103,19 @@
 }
 
 /* hide banner from landing */
-.hide-devsite-banner .devsite-banner {
+/* Removed for BLM Banner */
+/* .hide-devsite-banner .devsite-banner {
+  display: none;
+} */
+
+.goog-font {
+  font-family: Google Sans,Noto Sans,Noto Sans JP,Noto Sans KR,Noto Naskh Arabic,Noto Sans Thai,Noto Sans Hebrew,Noto Sans Bengali,sans-serif;
+}
+
+.cds20-marquee-margin-fix header.devsite-landing-row-header {
   display: none;
 }
 
-@media screen and (min-width: 900px) {
-
-  .wf-cds-banner {
-    background-image: url('/web/images/cds18-banner-img.png');
-    background-repeat: no-repeat;
-    background-position: right;
-    background-origin: content-box;
-    background-size: auto 135%;
-  }
-
-  .wf-cds-banner .devsite-landing-row-item-description {
-    max-width: 40%;
-  }
-
-  .wf-cds-banner h3 {
-    margin-bottom: 16px !important;
-  }
+.cds20-marquee-margin-fix .devsite-landing-row-group {
+  margin-top: 0 !important;
 }
-

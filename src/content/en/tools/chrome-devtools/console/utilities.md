@@ -1,8 +1,8 @@
-project_path: /web/tools/_project.yaml
-book_path: /web/tools/_book.yaml
+project_path: /web/tools/chrome-devtools/_project.yaml
+book_path: /web/tools/chrome-devtools/_book.yaml
 description: A reference of convenience functions available in the Chrome DevTools Console.
 
-{# wf_updated_on: 2019-04-18 #}
+{# wf_updated_on: 2020-07-10 #}
 {# wf_published_on: 2015-04-13 #}
 {# wf_blink_components: Platform>DevTools #}
 
@@ -64,7 +64,7 @@ while `$1` returns the previously selected one:
 
 `$(selector)` returns the reference to the first DOM element
 with the specified CSS selector.
-This function is an alias for the
+When called with one argument, this function is an alias for the
 [document.querySelector()](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
 function.
 
@@ -385,6 +385,18 @@ Result in the profiles panel:
 
 Note: Multiple CPU profiles can operate at once and you aren't required to close them out
 in creation order.
+
+
+## queryObjects(Constructor) {: #queryObjects }
+
+Call `queryObjects(Constructor)` from the console to return an array of objects that were created with the specified constructor. For example:
+
+- `queryObjects(Promise)`. Returns all Promises.
+- `queryObjects(HTMLElement)`. Returns all HTML elements.
+- `queryObjects(foo)`, where `foo` is a function name. Returns all objects that were instantiated via `new foo()`.
+
+The scope of `queryObjects()` is the currently-selected execution context in the console.
+
 
 ## table(data[, columns]) {: #table }
 

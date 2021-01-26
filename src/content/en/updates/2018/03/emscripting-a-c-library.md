@@ -2,7 +2,7 @@ project_path: /web/_project.yaml
 book_path: /web/updates/_book.yaml
 description: Emscripting a C library to Wasm
 
-{# wf_updated_on: 2018-03-05 #}
+{# wf_updated_on: 2020-06-27 #}
 {# wf_published_on: 2018-03-05 #}
 {# wf_tags: webassembly #}
 {# wf_featured_image: /web/updates/images/2018/03/emscripting-a-c-library/wasmcode.png #}
@@ -19,7 +19,7 @@ Traditionally, this is where you give up. Well, not anymore, because now we have
 [Emscripten](http://emscripten.org/) and [WebAssembly](http://webassembly.org/)
 (or Wasm)!
 
-Note: In this article I will describe my journey of compiling
+Note: In this article, I will describe my journey of compiling
 [libwebp](https://github.com/webmproject/libwebp) to Wasm. To make use of this
 article as well as Wasm in general, you will need knowledge of C, especially
 pointers, memory management and compiler options.
@@ -47,7 +47,7 @@ lot of things that you really don't need to experience developing for yourself.
 
 While that might sound like you have to worry about bloat — I certainly worried
 — the Emscripten compiler removes everything that's not needed. In my
-experiments the resulting Wasm modules are appropriately sized for the logic
+experiments, the resulting Wasm modules are appropriately sized for the logic
 that they contain and the Emscripten and WebAssembly teams are working on making
 them even smaller in the future.
 
@@ -69,8 +69,11 @@ calculates the n<sup>th</sup> fibonacci number:
 
     EMSCRIPTEN_KEEPALIVE
     int fib(int n) {
+      if(n <= 0){
+        return 0;
+      }
       int i, t, a = 0, b = 1;
-      for (i = 0; i < n; i++) {
+      for (i = 1; i < n; i++) {
         t = a + b;
         a = b;
         b = t;
@@ -96,20 +99,20 @@ need to turn to Emscripten's compiler command `emcc`:
 
 Let's dissect this command. `emcc` is Emscripten's compiler. `fib.c` is our C
 file. So far, so good. `-s WASM=1` tells Emscripten to give us a Wasm file
-instead of an [asm.js](http://asmjs.org/) file.. `-s
+instead of an [asm.js](http://asmjs.org/) file. `-s
 EXTRA_EXPORTED_RUNTIME_METHODS='["cwrap"]'` tells the compiler to leave the
 `cwrap()` function available in the JavaScript file — more on this function
 later. `-O3` tells the compiler to optimize aggressively. You can choose lower
 numbers to decrease build time, but that will also make the resulting bundles
 bigger as the compiler might not remove unused code.
 
-After running the command you should end up with a JavaScript file called
+After running the command, you should end up with a JavaScript file called
 `a.out.js` and a WebAssembly file called `a.out.wasm`. The Wasm file (or
 "module") contains our compiled C code and should be fairly small. The
 JavaScript file takes care of loading and initializing our Wasm module and
-providing a nicer API. If needed it will also take care of setting up the stack,
-the heap and other functionality usually expected to be provided by the
-operating system when writing C code. As such the JavaScript file is a bit
+providing a nicer API. If needed, it will also take care of setting up the stack,
+the heap, and other functionality usually expected to be provided by the
+operating system when writing C code. As such, the JavaScript file is a bit
 bigger, weighing in at 19KB (~5KB gzip'd).
 
 
@@ -135,7 +138,7 @@ arguments, in that order:
 
 If you [run this
 code](https://googlechrome.github.io/samples/webassembly/index.html), you should
-see the "233" in the console, which is the 12th Fibonacci number.
+see the "144" in the console, which is the 12th Fibonacci number.
 
 Note: Emscripten offers a couple of options to handle loading multiple modules.
 More about that in their

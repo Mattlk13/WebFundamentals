@@ -1,8 +1,8 @@
-project_path: /web/tools/_project.yaml
-book_path: /web/tools/_book.yaml
+project_path: /web/tools/chrome-devtools/_project.yaml
+book_path: /web/tools/chrome-devtools/_book.yaml
 description: How to find and analyze unused JavaScript and CSS code in Chrome DevTools.
 
-{# wf_updated_on: 2019-07-09 #}
+{# wf_updated_on: 2020-07-10 #}
 {# wf_published_on: 2019-07-09 #}
 {# wf_blink_components: Platform>DevTools #}
 
@@ -83,8 +83,8 @@ for the following reasons:
        if you want to see what code is needed to load the page.
      * Click **Instrument Coverage** ![Instrument Coverage][record]{: .inline-icon }
        if you want to see what code is used after interacting with the page.
-1. Click **Stop Instrumeting Coverage And Show Results** 
-   ![Stop Instrumeting Coverage And Show Results][stop]{: .inline-icon } when you want to 
+1. Click **Stop Instrumenting Coverage And Show Results** 
+   ![Stop Instrumenting Coverage And Show Results][stop]{: .inline-icon } when you want to 
    stop recording code coverage.
 
 ## Analyze code coverage {: #analyze }

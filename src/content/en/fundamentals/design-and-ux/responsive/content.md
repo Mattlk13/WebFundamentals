@@ -3,7 +3,7 @@ book_path: /web/fundamentals/_book.yaml
 description: Consider content as well as layout and graphic design when building for a range of users and devices.
 
 {# wf_blink_components: N/A #}
-{# wf_updated_on: 2018-09-20 #}
+{# wf_updated_on: 2020-07-24 #}
 {# wf_published_on: 2016-05-10 #}
 
 # Multi-Device Content {: .page-title }
@@ -155,7 +155,7 @@ On the smaller screen the browser renders the layout correctly, but the text is 
 ### Design content for mobile
 
 When building for a range of viewports, consider content as well as layout and graphic design,
-[design with real text and images, not dummy content](http://uxmyths.com/post/718187422/myth-you-dont-need-the-content-to-design-a-website).
+[design with real text and images, not placeholder content](http://uxmyths.com/post/718187422/myth-you-dont-need-the-content-to-design-a-website).
 
 > "Content precedes design. Design in the absence of content is not design, it's decoration."
 >
@@ -252,7 +252,7 @@ Bear in mind that this doesn't take into account affordability relative to incom
 </table>
 
 
-Page weight isn't just a problem for emerging markets. In many countries, people use mobile plans with limited data, and will avoid your site or app if they perceive it to be heavy and expensive. Even "unlimited" cell and wifi data plans generally have a data limit beyond which they are blocked or throttled.
+Page weight isn't just a problem for emerging markets. In many countries, people use mobile plans with limited data, and will avoid your site or app if they perceive it to be heavy and expensive. Even "unlimited" cell and wifi data plans generally have a data limit beyond which they are blocked or throttled. For these reasons, it's best to be as transparent as possible about how much data your page consumes. The following blog post provides specific best practices: [Nurture trust through cost transparency](https://medium.com/google-design/nurture-trust-through-cost-transparency-b61a5947d2fc)
 
 The bottom line: page weight affects performance and costs money. [Optimizing content efficiency](/web/fundamentals/performance/optimizing-content-efficiency/) shows how to reduce that cost.
 

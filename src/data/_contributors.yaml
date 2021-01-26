@@ -103,6 +103,19 @@ adamargyle:
     en: Developer Advocate at Google
   country: US
 
+kenjibaheux:
+  name:
+    given: Kenji
+    family: Baheux
+  twitter: KenjiBaheux
+  github: KenjiBaheux
+  org:
+    name: Google
+    unit: Chrome
+  country: JPN
+  description:
+    en: "Product Manager at Google, working on Chrome/Web Platform"
+
 pbakaus:
   name:
     given: Paul
@@ -118,6 +131,20 @@ pbakaus:
   email: pbakaus@google.com
   description:
     en: 'Open Web Developer Advocate at Google • Tools, Performance, Animation, UX'
+
+andreban:
+  name:
+    given: Andre
+    family: Bandarra
+  org:
+    name: Google
+    unit: Developer Relations
+  country: UK
+  role:
+    - author
+  email: andreban@google.com
+  description:
+    en: Andre is a Developer Advocate
 
 ianbarber:
   name:
@@ -147,6 +174,20 @@ kaycebasques:
     - author
   description:
     en: Technical Writer, Chrome DevTools & Lighthouse
+
+jobay:
+  name:
+    given: Johan
+    family: Bay
+  org:
+    name: Google
+    unit: Chrome DevTools
+  country: DK
+  role:
+    - author
+  github: johanbay
+  description:
+    en: Software Development Intern working on Puppeteer
 
 beaufortfrancois:
   name:
@@ -261,7 +302,7 @@ mathiasbynens:
     family: Bynens
   org:
     name: Google
-    unit: V8
+    unit: Chrome DevTools
   country: DE
   role:
     - author
@@ -271,7 +312,7 @@ mathiasbynens:
   email: mths@google.com
   lanyrd: mathias
   description:
-    en: V8 JavaScript whisperer
+    en: JavaScript whisperer
 
 owencm:
   name:
@@ -365,6 +406,20 @@ mco:
   email: mco@google.com
   description:
     en: 'Eng Manager, Web Developer Relations'
+
+peconn:
+  name:
+    given: Peter
+    family: Conn
+  twitter: petereconn
+  github: PEConn
+  description:
+    en: I'm a Software Engineer working on the Web Platform at Google London.
+  org:
+    name: Google
+    unit: Web Platform
+  country: UK
+  email: conn.peter@gmail.com
 
 flaviocopes:
   name:
@@ -504,6 +559,21 @@ tdresser:
   description:
     en: Software Engineer working on performance metrics at Google
 
+pavoldrotar:
+  name:
+    given: Pavol
+    family: Drotar
+  org:
+    name: Google
+    unit: Web Platform
+  country: UK
+  homepage: 'https://pavoldrotar.com'
+  twitter: DrotarPavol
+  github: padr31
+  email: pavol.drotar3@gmail.com
+  description:
+    en: I am a Software Engineer Intern wroking on the Web Platform.
+
 samdutton:
   name:
     given: Sam
@@ -561,6 +631,23 @@ flackr:
   role:
     - author
   email: flackr@google.com
+
+jackfranklin:
+  name:
+    given: Jack
+    family: Franklin
+  org:
+    name: Google
+    unit: Chrome
+  country: London
+  role:
+    - author
+  homepage: https://www.jackfranklin.co.uk/
+  twitter: Jack_Franklin
+  github: jackfranklin
+  email: jacktfranklin@chromium.org
+  description:
+    en: Googler building Chrome DevTools and Puppeteer and web tooling.
 
 jonathangarbee:
   name:
@@ -921,6 +1008,20 @@ captainpangyo:
   email: jangkeehyo@gmail.com
   description:
     en: Josh is a Singing Computer Scientist
+
+adrianajara:
+  name:
+    given: Adriana
+    family: Jara
+  org:
+    name: Google
+    unit: Developer Relations
+  country: US
+  role:
+    - author
+  email: ajara@google.com
+  description:
+    en: Adriana is a Developer Advocate
 
 kazukikanamori:
   name:
@@ -1332,13 +1433,13 @@ smcgruer:
 
 pjmclachlan:
   name:
-    given: Peter
+    given: PJ
     family: Mclachlan
   org:
     name: Google
     unit: Chrome
   description:
-    en: Peter is a Product Manager on Google's Chrome team responsible for web applications including Chrome advanced permissions, progressive web apps and web platform strategy for mobile.
+    en: PJ is a Product Manager on the Chrome Web Platform team responsible for Chrome permissions, notifications and progressive web apps.
   role:
     - author
 
@@ -1353,6 +1454,22 @@ josephmedley:
   email: jmedley@google.com
   description:
     en: Technical Writer
+
+rowanmerewood:
+  name:
+    given: Rowan
+    family: Merewood
+  org:
+    name: Google
+    unit: Developer Relations
+  country: UK
+  role:
+    - author
+  twitter: rowan_m
+  github: rowan-m
+  email: merewood@google.com
+  description:
+    en: Rowan is a Developer Advocate
 
 developit:
   name:
@@ -1386,6 +1503,37 @@ kuu:
   email: miyazaqui@gmail.com
   description:
     en: "Kuu is interested in media technology on the Web"
+
+fawazm:
+  name:
+    given: Fawaz
+    family: Mohammad
+  org:
+    name: Google
+    unit: Web Identity
+  country: Canada
+  role:
+    - author
+  github: fawazmohammad
+  email: fmohammad.hba2021@ivey.ca
+  description:
+    en: Software Development Intern working on Chrome Web Identity and DevTools
+
+maudnalpas:
+  name:
+    given: Maud
+    family: Nalpas
+  org:
+    name: Google
+    unit: Developer Relations
+  country: Germany
+  role:
+    - author
+  twitter: maudnals
+  github: maudnals
+  email: maudn@google.com
+  description:
+    en: Developer advocate at Google, working on Chrome privacy and security
 
 jacquerie:
   name:
@@ -1502,6 +1650,21 @@ rupl:
   description:
     en: Chris is a frontend developer and web performance advocate.
 
+nsatragno:
+  name:
+    given: Nina
+    family: Satragno
+  org:
+    name: Google
+    unit: Chrome
+  country: CA
+  role:
+    - author
+  twitter: nsatragno
+  email: nsatragno@google.com
+  description:
+    en: Google Chrome engineer making authentication on the web safe & easy.
+
 satyakresna:
   name:
     given: Kresna
@@ -1562,6 +1725,35 @@ yvoschaap:
   email: yvo@yvoschaap.com
   description:
     en: "Loves to code and build great things."
+
+janscheffler:
+  name:
+    given: Jan
+    family: Scheffler
+  org:
+    name: Google
+    unit: Chrome DevTools
+  country: Germany
+  role:
+    - author
+  email: janscheffler@google.com
+  description:
+    en: Software Engineer working on Chrome DevTools at Google
+
+sigurds:
+  name:
+    given: Sigurd
+    family: Schneider
+  org:
+    name: Google
+    unit: Chrome
+  country: DE
+  role:
+    - author
+  twitter: sigurdschn
+  email: sigurds@google.com
+  description:
+    en: Software Engineer working on Chrome DevTools at Google
 
 moinshaikh:
   name:
@@ -1717,6 +1909,22 @@ borissmus:
     - author
   email: smus@google.com
 
+antoinesolnichkin:
+  name:
+    given: Antoine
+    family: Solnichkin
+  org:
+    name: Independent
+    unit: Software Engineer
+  country: LU
+  role:
+    - translator
+  homepage: http://devconnected.com
+  twitter: devconnectedcom
+  email: solnichkin.antoine@gmail.com
+  description:
+    en: "Antoine is a Software Engineer based in Luxembourg"
+
 rsolomakhin:
   name:
     given: Rouslan
@@ -1729,6 +1937,18 @@ rsolomakhin:
     - author
   twitter: rsolomakhin
   email: rouslan@google.com
+
+annasorokina:
+  name:
+    given: Anna
+    family: Sorokina
+  org:
+    name: Independent
+    unit: Developer
+  country: BY
+  role:
+    - translator
+  email: ann40a@yandex.ru
 
 emilystark:
   name:
@@ -1760,6 +1980,18 @@ thomassteiner:
   role:
     - author
   email: tomac@google.com
+
+ingvarstepanyan:
+  name:
+    given: Ingvar
+    family: Stepanyan
+  org:
+    name: Google
+  country: UK
+  role:
+    - author
+  description:
+    en: WebAssembly Developer Advocate at Google
 
 sunyunjia:
   name:
@@ -1895,6 +2127,22 @@ johyphenel:
     - author
   twitter: johyphenel
   email: jo-el@google.com
+
+tvanderlippe:
+  name:
+    given: Tim
+    family: van der Lippe
+  org:
+    name: Google
+    unit: Chrome
+  country: United Kingdom
+  role:
+    - author
+  twitter: timvdlippe
+  github: timvdlippe
+  email: tvanderlippe@google.com
+  description:
+    en: Software Engineer working on Chrome DevTools at Google
 
 rviscomi:
   name:
@@ -2034,6 +2282,23 @@ kinukoyasuda:
   description:
     en: "Software Engineer at Google working on the web platform"
 
+jecelynyeen:
+  name:
+    given: Jecelyn
+    family: Yeen
+  org:
+    name: Google
+    unit: Developer Relations
+  country: Germany
+  role:
+    - author
+  homepage: https://jec.fyi
+  twitter: JecelynYeen
+  github: chybie
+  email: jec@google.com
+  description:
+    en: Developer advocate working on Chrome DevTools at Google
+
 maciejzasada:
   name:
     given: Maciej
@@ -2044,6 +2309,4 @@ maciejzasada:
   role:
     - author
   email: maciej@unit9.com
-
-
 

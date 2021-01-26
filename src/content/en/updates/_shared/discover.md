@@ -1,6 +1,196 @@
-## Discover other DevTools features {: #discover }
+## Discover DevTools features {: #discover }
 
 Below is a list of everything that's been covered in the *What's New In DevTools* series.
+
+### Chrome 89 {: #discover89 .hide-from-toc }
+
+* [Debugging support for Trusted Types violations](/web/updates/2021/01/devtools#trusted-types)
+* [Capture node screenshot beyond viewport](/web/updates/2021/01/devtools#node-screenshot)
+* [New Trust Tokens tab for network requests](/web/updates/2021/01/devtools#trust-token)
+* [Lighthouse 7 in the Lighthouse panel](/web/updates/2021/01/devtools#lighthouse)
+* [Support forcing the CSS `:target` state](/web/updates/2021/01/devtools#force-target)
+* [New shortcut to duplicate element](/web/updates/2021/01/devtools#duplicate-element)
+* [Color pickers for custom CSS properties](/web/updates/2021/01/devtools#color-picker)
+* [New shortcuts to copy CSS properties](/web/updates/2021/01/devtools#copy-css)
+* [New option to show URL-decoded cookies](/web/updates/2021/01/devtools#cookies-decoded)
+* [Clear only visible cookies](/web/updates/2021/01/devtools#clear-cookies)
+* [New option to clear third-party cookies in the Storage pane](/web/updates/2021/01/devtools#third-party-cookies)
+* [Edit User-Agent Client Hints for custom devices](/web/updates/2021/01/devtools#ua-ch)
+* [Persist “record network log” setting](/web/updates/2021/01/devtools#network-log)
+* [View WebTransport connections in the Network panel](/web/updates/2021/01/devtools#webtransport)
+* [“Online” renamed to “No throttling”](/web/updates/2021/01/devtools#no-throttling)
+* [New copy options in the Console, Sources panel, and Styles pane](/web/updates/2021/01/devtools#copy-sources-console)
+* [New Service Workers information in the Frame details view](/web/updates/2021/01/devtools#sw)
+* [Measure Memory information in the Frame details view](/web/updates/2021/01/devtools#measure-memory)
+* [Provide feedback from the Issues tab](/web/updates/2021/01/devtools#issues-feedback)
+* [Dropped frames in the Performance panel](/web/updates/2021/01/devtools#dropped-frames)
+* [Emulate foldable and dual-screen in Device Mode](/web/updates/2021/01/devtools#dual-screen)
+* [[Experimental] Automate browser testing with Puppeteer Recorder](/web/updates/2021/01/devtools#record)
+* [[Experimental] Font editor in the Styles pane](/web/updates/2021/01/devtools#font)
+* [[Experimental] CSS flexbox debugging tools](/web/updates/2021/01/devtools#flexbox)
+* [[Experimental] New CSP Violations tab](/web/updates/2021/01/devtools#csp)
+* [[Experimental] New color contrast calculation - Advanced Perceptual Contrast Algorithm (APCA)](/web/updates/2021/01/devtools#apca)
+
+### Chrome 88 {: #discover88 .hide-from-toc }
+
+* [Faster DevTools startup](/web/updates/2020/11/devtools#fast-startup)
+* [New CSS angle visualization tools](/web/updates/2020/11/devtools#css-angle)
+* [Emulate unsupported image types](/web/updates/2020/11/devtools#emulate-image)
+* [Simulate storage quota size in the Storage pane](/web/updates/2020/11/devtools#simulate-storage)
+* [New Web Vitals lane in the Performance panel](/web/updates/2020/11/devtools#web-vitals)
+* [Report CORS errors in the Network panel](/web/updates/2020/11/devtools#cors)
+* [Cross-origin isolation information in the Frame details view](/web/updates/2020/11/devtools#cross-origin)
+* [New Web Workers information in the Frame details view](/web/updates/2020/11/devtools#web-worker)
+* [Display opener frame details for opened windows](/web/updates/2020/11/devtools#opener-frame)
+* [Open Network panel from the Service Workers pane](/web/updates/2020/11/devtools#sw)
+* [Copy property value](/web/updates/2020/11/devtools#copy-value)
+* [Copy stacktrace for network initiator](/web/updates/2020/11/devtools#copy-stacktrace)
+* [Preview Wasm variable value on mouseover](/web/updates/2020/11/devtools#wasm-mouseover)
+* [Evaluate Wasm variable in the Console](/web/updates/2020/11/devtools#wasm-console)
+* [Consistent units of measurement for file/memory sizes](/web/updates/2020/11/devtools#onsistent-kb)
+* [Highlight pseudo elements in the Elements panel](/web/updates/2020/11/devtools#pseudo)
+* [[Experimental] CSS Flexbox debugging tools](/web/updates/2020/11/devtools#flexbox)
+* [[Experimental] Customize chords keyboard shortcuts](/web/updates/2020/11/devtools#keyboard-shortcuts)
+
+### Chrome 87 {: #discover87 .hide-from-toc }
+
+* [New CSS Grid debugging tools](/web/updates/2020/10/devtools#css-grid)
+* [New WebAuthn tab](/web/updates/2020/10/devtools#webauthn)
+* [Move tools between top and bottom panel](/web/updates/2020/10/devtools#moveable-tools)
+* [New Computed sidebar pane in the Styles pane](/web/updates/2020/10/devtools#computed-sidebar-pane)
+* [Grouping CSS properties in the Computed pane](/web/updates/2020/10/devtools#grouping-css-prop)
+* [Lighthouse 6.3 in the Lighthouse panel](/web/updates/2020/10/devtools#lighthouse)
+* [`performance.mark()` events in the Timings section](/web/updates/2020/10/devtools#perf-mark)
+* [New `resource-type` and `url` filters in the Network panel](/web/updates/2020/10/devtools#network-filters)
+* [Frame details view updates](/web/updates/2020/10/devtools#rame-details)
+* [Deprecation of `Settings` in the More tools menu](/web/updates/2020/10/devtools#deprecate-settings)
+* [[Experimental] View and fix color contrast issues in the CSS Overview panel](/web/updates/2020/10/devtools#css-overview)
+* [[Experimental] Customize keyboard shortcuts in DevTools](/web/updates/2020/10/devtools#customize keyboard-shortcuts)
+
+### Chrome 86 {: #discover86 .hide-from-toc }
+
+* [New Media panel](/web/updates/2020/08/devtools#media-panel)
+* [Capture node screenshots via Elements panel context menu](/web/updates/2020/08/devtools#capture-node-screenshot)
+* [Issues tab updates](/web/updates/2020/08/devtools#issues-tab)
+* [Emulate missing local fonts](/web/updates/2020/08/devtools#emulate-local-fonts)
+* [Emulate inactive users](/web/updates/2020/08/devtools#emulate-inactive-users)
+* [Emulate `prefers-reduced-data`](/web/updates/2020/08/devtools#emulate-prefers-reduced-data)
+* [Support for new JavaScript features](/web/updates/2020/08/devtools#javascript)
+* [Lighthouse 6.2 in the Lighthouse panel](/web/updates/2020/08/devtools#lighthouse)
+* [Deprecation of “other origins” listing in the Service Workers pane](/web/updates/2020/08/devtools#deprecate-sw-other-origins)
+* [Show coverage summary for filtered items](/web/updates/2020/08/devtools#filter-coverage-summary)
+* [New frame details view in Application panel](/web/updates/2020/08/devtools#frame-detailed-view)
+* [Accessible color suggestion in the Styles pane](/web/updates/2020/08/devtools#accessible-color)
+* [Reinstate **Properties** pane in the Elements panel](/web/updates/2020/08/devtools#properties)
+* [Human-readable `X-Client-Data` header values in the Network panel](/web/updates/2020/08/devtools#x-client-data)
+* [Auto-complete custom fonts in the Styles pane](/web/updates/2020/08/devtools#auto-complete-custom-fonts)
+* [Consistently display resource type in Network panel](/web/updates/2020/08/devtools#redirect-resource-type)
+* [Clear buttons in the Elements and Network panels](/web/updates/2020/08/devtools#clear-input-button)
+
+### Chrome 85 {: #discover85 .hide-from-toc }
+
+* [Style editing for CSS-in-JS frameworks](/web/updates/2020/06/devtools#css-in-js)
+* [Lighthouse 6 in the Lighthouse panel](/web/updates/2020/06/devtools#lighthouse)
+* [First Meaningful Paint (FMP) deprecation](/web/updates/2020/06/devtools#fmp-deprecation)
+* [Support for new JavaScript features](/web/updates/2020/06/devtools#javascript)
+* [New app shortcut warnings in the Manifest pane](/web/updates/2020/06/devtools#app-shortcut-warnings)
+* [Service worker `respondWith` events in the Timing tab](/web/updates/2020/06/devtools#timing-tab)
+* [Consistent display of the Computed pane](/web/updates/2020/06/devtools#compute-pane)
+* [Bytecode offsets for WebAssembly files](/web/updates/2020/06/devtools#wasm)
+* [Line-wise copy and cut in Sources Panel](/web/updates/2020/06/devtools#sources-panel)
+* [Console settings updates](/web/updates/2020/06/devtools#console-settings)
+* [Performance panel updates](/web/updates/2020/06/devtools#perf-panel)
+* [New icons for breakpoints, conditional breakpoints, and logpoints](/web/updates/2020/06/devtools#breakpoints)
+
+### Chrome 84 {: #discover84 .hide-from-toc }
+
+* [Fix site issues with the new Issues tab](/web/updates/2020/05/devtools#issues)
+* [View accessibility information in the Inspect Mode tooltip](/web/updates/2020/05/devtools#a11y)
+* [Performance panel updates](/web/updates/2020/05/devtools#performance)
+* [More accurate promise terminology in the Console](/web/updates/2020/05/devtools#promises)
+* [Styles pane updates](/web/updates/2020/05/devtools#styles)
+* [Deprecation of the **Properties** pane in the Elements panel](/web/updates/2020/05/devtools#properties)
+* [App shortcuts support in the Manifest pane](/web/updates/2020/05/devtools#app-shortcuts)
+
+
+### Chrome 83 {: #discover83 .hide-from-toc }
+
+* [Emulate vision deficiencies](/web/updates/2020/03/devtools#vision-deficiencies)
+* [Emulate locales](/web/updates/2020/03/devtools#locales)
+* [Cross-Origin Embedder Policy (COEP) debugging](/web/updates/2020/03/devtools#COEP)
+* [New icons for breakpoints, conditional breakpoints, and logpoints](/web/updates/2020/03/devtools#debugging-icons)
+* [View network requests that set a specific cookie](/web/updates/2020/03/devtools#cookie-path)
+* [Dock to left from the Command Menu](/web/updates/2020/03/devtools#dock-to-left)
+* [The Settings option in the Main Menu has moved](/web/updates/2020/03/devtools#settings)
+* [The Audits panel is now the Lighthouse panel](/web/updates/2020/03/devtools#lighthouse)
+* [Delete all Local Overrides in a folder](/web/updates/2020/03/devtools#overrides)
+* [Updated Long Tasks UI](/web/updates/2020/03/devtools#long-tasks)
+* [Maskable icon support in the Manifest pane](/web/updates/2020/03/devtools#maskable-icons)
+
+### Chrome 82 {: #discover82 .hide-from-toc }
+
+[Chrome 82 was cancelled](https://blog.chromium.org/2020/03/chrome-and-chrome-os-release-updates.html).
+
+### Chrome 81 {: #discover81 .hide-from-toc }
+
+* [Moto G4 support in Device Mode](/web/updates/2020/01/devtools#motog4)
+* [Cookie-related updates](/web/updates/2020/01/devtools#cookies)
+* [More accurate web app manifest icons](/web/updates/2020/01/devtools#manifesticons)
+* [Hover over CSS `content` properties to see unescaped values](/web/updates/2020/01/devtools#content)
+* [Source map errors in the Console](/web/updates/2020/01/devtools#sourcemaperrors)
+* [Setting for disabling scrolling past the end of a file](/web/updates/2020/01/devtools#scrolling)
+
+### Chrome 80 {: #discover80 .hide-from-toc }
+
+* [Support for `let` and `class` redeclarations in the Console](/web/updates/2019/12/devtools#redeclarations)
+* [Improved WebAssembly debugging](/web/updates/2019/12/devtools#webassembly)
+* [Request Initiator Chains in the Initiator tab](/web/updates/2019/12/devtools#initiators)
+* [Highlight the selected network request in the Overview](/web/updates/2019/12/devtools#overview)
+* [URL and path columns in the Network panel](/web/updates/2019/12/devtools#columns)
+* [Updated User-Agent strings](/web/updates/2019/12/devtools#useragents)
+* [New Audits panel configuration UI](/web/updates/2019/12/devtools#config)
+* [Per-function or per-block code coverage modes](/web/updates/2019/12/devtools#modes)
+* [Code coverage must now be initiated by a page reload](/web/updates/2019/12/devtools#reload)
+
+### Chrome 79 {: #discover79 .hide-from-toc }
+
+* [Debug why a cookie was blocked](/web/updates/2019/10/devtools#blockedcookies)
+* [View cookie values](/web/updates/2019/10/devtools#cookiepreviews)
+* [Simulate different prefers-color-scheme and prefers-reduced-motion preferences](/web/updates/2019/10/devtools#userpreferences)
+* [Code coverage updates](/web/updates/2019/10/devtools#coverage)
+* [Debug why a network resource was requested](/web/updates/2019/10/devtools#initiator)
+* [Console and Sources panels respect indentation preferences again](/web/updates/2019/10/devtools#indentation)
+* [New shortcuts for cursor navigation](/web/updates/2019/10/devtools#console)
+
+### Chrome 78 {: #discover78 .hide-from-toc }
+
+* [Multi-client support in the Audits panel](/web/updates/2019/09/devtools#multiclient)
+* [Payment Handler debugging](/web/updates/2019/09/devtools#payments)
+* [Lighthouse 5.2 in the Audits panel](/web/updates/2019/09/devtools#audits)
+* [Largest Contentful Paint in the Performance panel](/web/updates/2019/09/devtools#LCP)
+* [File DevTools issues from the Main Menu](/web/updates/2019/09/devtools#issues)
+
+### Chrome 77 {: #discover77 .hide-from-toc }
+
+* [Copy element styles](/web/updates/2019/07/devtools#copystyles)
+* [Visualize layout shifts](/web/updates/2019/07/devtools#layoutshifts)
+* [Lighthouse 5.1 in the Audits panel](/web/updates/2019/07/devtools#audits)
+* [OS theme syncing](/web/updates/2019/07/devtools#theming)
+* [Keyboard shortcut for opening the Breakpoint Editor](/web/updates/2019/07/devtools#breakpointeditor)
+* [Prefetch cache in the Network panel](/web/updates/2019/07/devtools#prefetch)
+* [Private properties when viewing objects](/web/updates/2019/07/devtools#privateclassfields)
+* [Notifications and push messages in the Application panel](/web/updates/2019/07/devtools#backgroundservices)
+
+### Chrome 76 {: #discover76 .hide-from-toc }
+
+* [Autocomplete with CSS values](/web/updates/2019/05/devtools#values)
+* [A new UI for network settings](/web/updates/2019/05/devtools#settings)
+* [WebSocket messages in HAR exports](/web/updates/2019/05/devtools#websocket)
+* [HAR import and export buttons](/web/updates/2019/05/devtools#HAR)
+* [Real-time memory usage](/web/updates/2019/05/devtools#memory)
+* [Service worker registration port numbers](/web/updates/2019/05/devtools#ports)
+* [Inspect Background Fetch and Background Sync events](/web/updates/2019/05/devtools#background)
+* [Puppeteer for Firefox](/web/updates/2019/05/devtools#puppeteer)
 
 ### Chrome 75 {: #discover75 .hide-from-toc }
 
@@ -54,7 +244,7 @@ Below is a list of everything that's been covered in the *What's New In DevTools
 * [Initiator and priority information now in HAR imports and exports](/web/updates/2018/10/devtools)
 * [Access the Command Menu from the Main Menu](/web/updates/2018/10/devtools)
 * [Picture-in-Picture breakpoints](/web/updates/2018/10/devtools)
-* Bonus tip: [Use `monitorEvents()` to log a node's fired events in the 
+* Bonus tip: [Use `monitorEvents()` to log a node's fired events in the
   Console](https://youtu.be/fJxFZO8OEEs?t=154) (video)
 
 ### Chrome 70 {: #discover70 .hide-from-toc }

@@ -1,8 +1,8 @@
-project_path: /web/tools/_project.yaml
-book_path: /web/tools/_book.yaml
+project_path: /web/tools/chrome-devtools/_project.yaml
+book_path: /web/tools/chrome-devtools/_book.yaml
 description: A comprehensive reference on every feature and behavior related to the Console UI in Chrome DevTools.
 
-{# wf_updated_on: 2019-04-18 #}
+{# wf_updated_on: 2020-07-10 #}
 {# wf_published_on: 2019-04-18 #}
 {# wf_blink_components: Platform>DevTools #}
 
@@ -151,7 +151,7 @@ default message grouping behavior. See [Log XHR and Fetch requests](#xhr) for an
   </figcaption>
 </figure>
 
-The top message in **Figure X** shows the Console's default grouping behavior. **Figure X** shows
+The top message in **Figure 8** shows the Console's default grouping behavior. **Figure 9** shows
 how the same log looks after [disabling message grouping](#group).
 
 <figure>

@@ -2,7 +2,7 @@ project_path: /web/tools/workbox/_project.yaml
 book_path: /web/tools/workbox/_book.yaml
 description: Advanced recipes to use with Workbox.
 
-{# wf_updated_on: 2019-03-07 #}
+{# wf_updated_on: 2020-08-25 #}
 {# wf_published_on: 2017-12-17 #}
 {# wf_blink_components: N/A #}
 
@@ -19,18 +19,17 @@ To do this you'll need to add some code to your page and to your service worker.
 
 ```html
 <script type="module">
-import {Workbox} from 'https://storage.googleapis.com/workbox-cdn/releases/4.1.0/workbox-window.prod.mjs';
+import {Workbox, messageSW} from 'https://storage.googleapis.com/workbox-cdn/releases/{% include "web/tools/workbox/_shared/workbox-latest-version.html" %}/workbox-window.prod.mjs';
 
 if ('serviceWorker' in navigator) {
   const wb = new Workbox('/sw.js');
+  let registration;
 
-  // Add an event listener to detect when the registered
-  // service worker has installed but is waiting to activate.
-  wb.addEventListener('waiting', (event) => {
+  const showSkipWaitingPrompt = (event) => {
     // `event.wasWaitingBeforeRegister` will be false if this is
     // the first time the updated service worker is waiting.
     // When `event.wasWaitingBeforeRegister` is true, a previously
-    // updated same service worker is still waiting.
+    // updated service worker is still waiting.
     // You may want to customize the UI prompt accordingly.
 
     // Assumes your app has some sort of prompt UI element
@@ -44,20 +43,27 @@ if ('serviceWorker' in navigator) {
           window.location.reload();
         });
 
-        // Send a message telling the service worker to skip waiting.
-        // This will trigger the `controlling` event handler above.
-        // Note: for this to work, you have to add a message
-        // listener in your service worker. See below.
-        wb.messageSW({type: 'SKIP_WAITING'});
+        if (registration && registration.waiting) {
+          // Send a message to the waiting service worker,
+          // instructing it to activate.  
+          // Note: for this to work, you have to add a message
+          // listener in your service worker. See below.
+          messageSW(registration.waiting, {type: 'SKIP_WAITING'});
+        }
       },
 
       onReject: () => {
         prompt.dismiss();
       }
-    })
-  });
+    });
+  };
 
-  wb.register();
+  // Add an event listener to detect when the registered
+  // service worker has installed but is waiting to activate.
+  wb.addEventListener('waiting', showSkipWaitingPrompt);
+  wb.addEventListener('externalwaiting', showSkipWaitingPrompt);
+
+  wb.register().then((r) => registration = r);
 }
 </script>
 ```
@@ -107,9 +113,11 @@ add some files to the cache during the service worker installation.
 To do this you'll need to install your desired assets to the runtime cache.
 
 ```javascript
+import {cacheNames} from 'workbox-core';
+
 self.addEventListener('install', (event) => {
   const urls = [/* ... */];
-  const cacheName = workbox.core.cacheNames.runtime;
+  const cacheName = cacheNames.runtime;
   event.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(urls)));
 });
 ```
@@ -121,49 +129,110 @@ your custom value to `cacheName`.
 
 There are scenarios where returning a fallback response is better than failing
 to return a response at all. An example is returning a placeholder image when
-the original image can't be retrieved.
+the original image can't be retrieved, or an offline HTML experience instead of
+the browser's standard offline page.
+
+### Offline page only
+
+If your goal is to provide a custom offline HTML page, but not cache anything
+else, this is a baseline recipe to follow. It takes advantage of
+[navigation preload](/web/updates/2017/02/navigation-preload) (in supported
+browsers) to help mitigate the startup cost of a service worker.
+
+```javascript
+import * as navigationPreload from 'workbox-navigation-preload';
+import {registerRoute, NavigationRoute} from 'workbox-routing';
+import {NetworkOnly} from 'workbox-strategies';
+
+const CACHE_NAME = 'offline-html';
+// This assumes /offline.html is a URL for your self-contained
+// (no external images or styles) offline page.
+const FALLBACK_HTML_URL = '/offline.html';
+// Populate the cache with the offline HTML page when the
+// service worker is installed.
+self.addEventListener('install', async (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then((cache) => cache.add(FALLBACK_HTML_URL))
+  );
+});
+
+navigationPreload.enable();
+
+const networkOnly = new NetworkOnly();
+const navigationHandler = async (params) => {
+  try {
+    // Attempt a network request.
+    return await networkOnly.handle(params);
+  } catch (error) {
+    // If it fails, return the cached HTML.
+    return caches.match(FALLBACK_HTML_URL, {
+      cacheName: CACHE_NAME,
+    });
+  }
+};
+
+// Register this strategy to handle all navigations.
+registerRoute(
+  new NavigationRoute(navigationHandler)
+);
+```
+
+### Comprehensive fallbacks
 
 All of the built-in caching strategies reject in a consistent manner when there's a network failure
 and/or a cache miss. This promotes the pattern of [setting a global "catch"
-handler](/web/tools/workbox/reference-docs/latest/workbox.routing#.setCatchHandler) to deal with any
-failures in a single handler function:
+handler](/web/tools/workbox/reference-docs/latest/module-workbox-routing#.setCatchHandler) to deal with any
+failures in a single handler function.
 
 ```javascript
+import {matchPrecache, precacheAndRoute} from 'workbox-precaching';
+import {registerRoute, setDefaultHandler, setCatchHandler} from 'workbox-routing';
+import {CacheFirst, StaleWhileRevalidate} from 'workbox-strategies';
+
+// Optional: use the injectManifest mode of one of the Workbox
+// build tools to precache a list of URLs, including fallbacks.
+precacheAndRoute(self.__WB_MANIFEST);
+
 // Use an explicit cache-first strategy and a dedicated cache for images.
-workbox.routing.registerRoute(
-  new RegExp('/images/'),
-  new workbox.strategies.CacheFirst({
+registerRoute(
+  ({request}) => request.destination === 'image',
+  new CacheFirst({
     cacheName: 'images',
     plugins: [...],
   })
 );
 
 // Use a stale-while-revalidate strategy for all other requests.
-workbox.routing.setDefaultHandler(
-  new workbox.strategies.StaleWhileRevalidate()
-);
+setDefaultHandler(new StaleWhileRevalidate());
 
 // This "catch" handler is triggered when any of the other routes fail to
 // generate a response.
-workbox.routing.setCatchHandler(({event}) => {
-  // The FALLBACK_URL entries must be added to the cache ahead of time, either via runtime
-  // or precaching.
-  // If they are precached, then call workbox.precaching.getCacheKeyForURL(FALLBACK_URL)
-  // to get the correct cache key to pass in to caches.match().
+setCatchHandler(({event}) => {
+  // The FALLBACK_URL entries must be added to the cache ahead of time, either
+  // via runtime or precaching. If they are precached, then call
+  // `matchPrecache(FALLBACK_URL)` (from the `workbox-precaching` package)
+  // to get the response from the correct cache.
   //
   // Use event, request, and url to figure out how to respond.
   // One approach would be to use request.destination, see
   // https://medium.com/dev-channel/service-worker-caching-strategies-based-on-request-types-57411dd7652c
   switch (event.request.destination) {
     case 'document':
+      // If using precached URLs:
+      // return matchPrecache(FALLBACK_HTML_URL);
       return caches.match(FALLBACK_HTML_URL);
     break;
 
     case 'image':
+      // If using precached URLs:
+      // return matchPrecache(FALLBACK_IMAGE_URL);
       return caches.match(FALLBACK_IMAGE_URL);
     break;
 
     case 'font':
+      // If using precached URLs:
+      // return matchPrecache(FALLBACK_FONT_URL);
       return caches.match(FALLBACK_FONT_URL);
     break;
 
@@ -174,7 +243,7 @@ workbox.routing.setCatchHandler(({event}) => {
 });
 ```
 
-## Make standalone requests using a strategy {: #make-requests }
+## Make standalone requests using a strategy {: #handle }
 
 Most developers will use one of Workbox's
 [strategies](/web/tools/workbox/modules/workbox-strategies) as part of a
@@ -185,22 +254,22 @@ There are situations where you may want to use a strategy in your own router set
 a plain `fetch()` request.
 
 To help with these sort of use cases, you can use any of the Workbox strategies in a "standalone"
-fashion via the `makeRequest()` method.
+fashion via the `handle()` method.
 
 ```javascript
+import {NetworkFirst} from 'workbox-strategies';
+
 // Inside your service worker code:
-const strategy = new workbox.strategies.NetworkFirst({
-  networkTimeoutSeconds: 10,
-});
-const response = await strategy.makeRequest({
-  request: 'https://example.com/path/to/file',
+const strategy = new NetworkFirst({networkTimeoutSeconds: 10});
+
+const response = await strategy.handle({
+  request: new Request('https://example.com/path/to/file'),
 });
 // Do something with response.
 ```
 
-The `request` parameter is required, and can either be a
-[`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object or a string
-representing a URL.
+The `request` parameter is required, and must be of type
+[`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request).
 
 The `event` parameter is an optional
 [`ExtendableEvent`](https://developer.mozilla.org/en-US/docs/Web/API/ExtendableEvent). If provided,
@@ -208,32 +277,36 @@ it will be used to keep the service worker alive (via
 [`event.waitUntil()`](https://developer.mozilla.org/en-US/docs/Web/API/ExtendableEvent/waitUntil))
 long enough to complete any "background" cache updates and cleanup.
 
-`makeRequest()` returns a promise for a
+`handle()` returns a promise for a
 [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response) object.
 
 You can use it in a more complex example as follows:
 
 ```javascript
-self.addEventListener('fetch', async (event) => {
+import {StaleWhileRevalidate} from 'workbox-strategies';
+
+self.addEventListener('fetch', (event) => {
   if (event.request.url.endsWith('/complexRequest')) {
-    // Configure the strategy in advance.
-    const strategy = new workbox.strategies.StaleWhileRevalidate({cacheName: 'api-cache'});
+    event.respondWith((async () => {
+      // Configure the strategy in advance.
+      const strategy = new StaleWhileRevalidate({cacheName: 'api-cache'});
 
-    // Make two requests using the strategy.
-    // Because we're passing in event, event.waitUntil() will be called automatically.
-    const firstPromise = strategy.makeRequest({event, request: 'https://example.com/api1'});
-    const secondPromise = strategy.makeRequest({event, request: 'https://example.com/api2'});
+      // Make two requests using the strategy.
+      // Because we're passing in event, event.waitUntil() will be called automatically.
+      const firstPromise = strategy.handle({event, request: 'https://example.com/api1'});
+      const secondPromise = strategy.handle({event, request: 'https://example.com/api2'});
 
-    const [firstResponse, secondResponse] = await Promise.all(firstPromise, secondPromise);
-    const [firstBody, secondBody] = await Promise.all(firstResponse.text(), secondResponse.text());
+      const [firstResponse, secondResponse] = await Promise.all(firstPromise, secondPromise);
+      const [firstBody, secondBody] = await Promise.all(firstResponse.text(), secondResponse.text());
 
-    // Assume that we just want to concatenate the first API response with the second to create the
-    // final response HTML.
-    const compositeResponse = new Response(firstBody + secondBody, {
-      headers: {'content-type': 'text/html'},
-    });
+      // Assume that we just want to concatenate the first API response with the second to create the
+      // final response HTML.
+      const compositeResponse = new Response(firstBody + secondBody, {
+        headers: {'content-type': 'text/html'},
+      });
 
-    event.respondWith(compositeResponse);
+      return compositeResponse;
+    })());
   }
 });
 ```
@@ -271,6 +344,11 @@ Workbox:
 ```
 
 ```javascript
+import {registerRoute} from 'workbox-routing';
+import {CacheFirst} from 'workbox-strategies';
+import {CacheableResponsePlugin} from 'workbox-cacheable-response';
+import {RangeRequestsPlugin} from 'workbox-range-requests';
+
 // In your service worker:
 // It's up to you to either precache or explicitly call cache.add('movie.mp4')
 // to populate the cache.
@@ -278,13 +356,13 @@ Workbox:
 // This route will go against the network if there isn't a cache match,
 // but it won't populate the cache at runtime.
 // If there is a cache match, then it will properly serve partial responses.
-workbox.routing.registerRoute(
-  /.*\.mp4/,
-  new workbox.strategies.CacheFirst({
+registerRoute(
+  ({url}) => url.pathname.endsWith('.mp4'),
+  new CacheFirst({
     cacheName: 'your-cache-name-here',
     plugins: [
-      new workbox.cacheableResponse.Plugin({statuses: [200]}),
-      new workbox.rangeRequests.Plugin(),
+      new CacheableResponsePlugin({statuses: [200]}),
+      new RangeRequestsPlugin(),
     ],
   }),
 );

@@ -18,7 +18,6 @@ announcement:
       .devsite-banner-announcement {
         background-color: #e8f0fe;
         color: #424242;
-
       }
       .devsite-banner-announcement :link,
       .devsite-banner-announcement :visited {
@@ -29,4 +28,7 @@ announcement:
         vertical-align: middle;
         margin-right: 8px;
       }
-    </style> Do you use responsive images, lazy loading, or other optimizations? If not, why not? What affects your decisions? <br> Answer a few simple questions to help us understand your needs, and what we can do to make your life easier. <a href="https://forms.gle/DJt35H2mdEe81Lae9">Get Started</a>
+      .goog-font {
+        font-family: Google Sans,Noto Sans,Noto Sans JP,Noto Sans KR,Noto Naskh Arabic,Noto Sans Thai,Noto Sans Hebrew,Noto Sans Bengali,sans-serif;
+      }
+    </style> It's a wrap for <b class="goog-font">Chrome Dev Summit 2020</b>! Watch all the sessions at <a href="https://goo.gle/cds20-sessions">goo.gle/cds20-sessions</a> now!

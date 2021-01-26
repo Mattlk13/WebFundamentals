@@ -1,8 +1,8 @@
-project_path: /web/tools/_project.yaml
-book_path: /web/tools/_book.yaml
+project_path: /web/tools/chrome-devtools/_project.yaml
+book_path: /web/tools/chrome-devtools/_book.yaml
 description: Learn how to use Chrome DevTools to find ways to make your websites load faster.
 
-{# wf_updated_on: 2018-08-24 #}
+{# wf_updated_on: 2020-07-10 #}
 {# wf_published_on: 2018-06-18 #}
 {# wf_blink_components: Platform>DevTools #}
 
@@ -660,7 +660,7 @@ page loads, and find ways to defer or remove unnecessary work.
    more hardware constraints than laptops or desktops, so these settings let you experience the
    page load as if you were using a less powerful device.
 1. Click **Reload** ![Reload](imgs/reload.png){:.inline-icon}. DevTools reloads the page and
-   then produces a visualization of all the it had to do in order to load the page.
+   then produces a visualization of all it had to do in order to load the page.
    This visualization will be referred to as the *trace*.
 
      <figure>

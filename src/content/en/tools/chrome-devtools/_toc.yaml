@@ -13,6 +13,8 @@ toc:
     path: /web/tools/chrome-devtools/coverage/
   - title: Inspect Animations
     path: /web/tools/chrome-devtools/inspect-styles/animations
+  - title: Inspect CSS Grid
+    path: /web/tools/chrome-devtools/css/grid
   - title: Edit Styles
     path: /web/tools/chrome-devtools/inspect-styles/edit-styles
     status: deprecated
@@ -81,9 +83,13 @@ toc:
     path: /web/tools/chrome-devtools/storage/applicationcache
   - title: Web SQL
     path: /web/tools/chrome-devtools/storage/websql
+  - title: Cache
+    path: /web/tools/chrome-devtools/storage/cache
   - title: Inspect and Manage Storage, Databases, and Caches
     path: /web/tools/chrome-devtools/manage-data/local-storage
     status: deprecated
+- title: Issues
+  path: /web/tools/chrome-devtools/issues/
 - title: Command Menu
   path: /web/tools/chrome-devtools/command-menu/
 - title: Mobile Simulation
@@ -136,6 +142,8 @@ toc:
     path: /web/tools/chrome-devtools/snippets
   - title: Sources Panel Overview
     path: /web/tools/chrome-devtools/sources
+  - title: Debug Background Services
+    path: /web/tools/chrome-devtools/javascript/background-services
   - title: Guides
     section:
     - title: Blackbox Chrome Extension Scripts
@@ -201,6 +209,10 @@ toc:
     path: /web/tools/chrome-devtools/memory-problems/heap-snapshots
   - title: Use the Allocation Profiler
     path: /web/tools/chrome-devtools/memory-problems/allocation-profiler
+- title: Media
+  path: /web/tools/chrome-devtools/media-panel/
+- title: WebAuthn
+  path: /web/tools/chrome-devtools/webauthn/
 - title: Workspaces
   path: /web/tools/chrome-devtools/workspaces/
 - title: Progressive Web Apps
@@ -230,4 +242,3 @@ toc:
   - title: Debugger Protocol
     path: https://developer.chrome.com/devtools/docs/debugger-protocol
     status: external
-

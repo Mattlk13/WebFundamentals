@@ -2,7 +2,7 @@ project_path: /web/_project.yaml
 book_path: /web/updates/_book.yaml
 description: Web apps should be able to do anything native apps can. Through Project Fugu, we want to make it possible to build and deliver any kind of app on the open web.
 
-{# wf_updated_on: 2019-07-03 #}
+{# wf_updated_on: 2020-02-24 #}
 {# wf_published_on: 2018-11-12 #}
 {# wf_tags: capabilities #}
 {# wf_featured_image: /web/updates/images/generic/thumbs-up.png #}
@@ -45,162 +45,9 @@ apps should be able to do anything native apps can.
 > platforms to the web platform, while maintaining user security, privacy,
 > trust, and other core tenets of the web.
 
-## The new capabilities
-
-You can see the [full list](crbug.com/?q=proj-fugu) of capabilities we're
-considering on [crbug.com](https://crbug.com) and filtering issues with the
-`proj-fugu` label.
-
 <aside class="note">
-  <b>Have a suggestion for a capability you think we should consider?</b>
-  Tell us about it by filing a <a href="https://goo.gl/qWhHXU">new feature
-  request</a>. Please be sure to include as much detail as you can, such as
-  the problem you're trying to solve, suggested use cases, and anything else
-  that might be helpful.
-</aside>
-
-### Capabilities in flight {: #in-flight }
-
-<aside class="success">
-  <b>New</b>
-  See a completely list of APIs we're working on and approximate time
-  lines in our <a href="https://bit.ly/fugu-api-tracker">API Tracker</a>.
-</aside>
-
-<table>
-  <thead>
-    <tr>
-      <th>Capability</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <a href="/web/updates/2018/12/badging-api">Badging API</a>
-      </td>
-      <td>
-        The Badging API is a new web platform API that allows installed web
-        apps to set an application-wide badge, shown in an
-        operating-system-specific place associated with the application, such
-        as the shelf or home screen. Badging makes it easy to subtly notify
-        the user that there is some new activity that might require their
-        attention, or it can be used to indicate a small amount of information,
-        such as an unread count.
-        <br><br>
-        <b>Current Status:</b> Available as an origin trial.<br>
-        <b>Last Updated:</b> March 12th, 2019
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="/web/updates/2018/12/get-installed-related-apps">
-          Get Installed Related Apps API
-        </a>
-      </td>
-      <td>
-        The Get Installed Related Apps API is a new web platform API
-        that allows your web app to check to see if your native app is
-        installed on the users device, and vice versa.
-        <br><br>
-        <b>Current Status:</b> Available as an origin trial.<br>
-        <b>Last Updated:</b> March 12th, 2019
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="/web/updates/2019/01/shape-detection">Shape&nbsp;Detection API</a>
-      </td>
-      <td>
-        The Shape Detection API opens up native implementations of shape
-        detection services and exposes them through a set of JavaScript
-        interfaces. Currently, the supported features are face detection,
-        barcode detection, and text detection (Optical Character Recognition).
-        <br><br>
-        <b>Current Status:</b> Behind a flag in Chrome 74.<br>
-        <b>Last Updated:</b> May 28th, 2019
-      </td>
-    <tr>
-      <td>
-        <a href="/web/updates/2018/12/wakelock">Wake Lock API</a>
-      </td>
-      <td>
-        To avoid draining the battery, most devices will quickly fall asleep
-        when left idle. While this is fine for most of the time, there are
-        some applications that need to keep the screen or the device awake in
-        order to complete some work. The Wake Lock API provides a way to
-        prevent the device from dimming or locking the screen or prevent
-        the device from going to sleep when an application needs to keep
-        running.
-        <br><br>
-        <b>Current Status:</b> Behind a flag in Chrome 71 for desktop.<br>
-        <b>Last Updated:</b> May 28th, 2019
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="/web/updates/2018/11/writable-files">Writable Files API</a>
-      </td>
-      <td>
-        The Writable Files API is designed to increase interoperability of
-        web applications with native applications, making it possible for users
-        to choose files or directories that a web app can interact with on the
-        native file system, and without having to use a native wrapper like
-        Electron to ship your web app.
-        <br><br>
-        <b>Current Status:</b> Gathering feedback &amp; iterating on design.<br>
-        <b>Last Updated:</b> November 12th, 2018
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-### Launched capabilities {: #launched }
-
-<table>
-  <thead>
-    <tr>
-      <th>Capability</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <a href="/web/updates/2019/06/image-support-for-async-clipboard">
-          Async&nbsp;Clipboard API (images)
-        </a>
-      </td>
-      <td>
-        In Chrome 66, we shipped the Asynchronous Clipboard API with
-        support for reading and writing text. In Chrome 76, we added support
-        for reading and writing images to the clipboard.
-        <br><br>
-        <b>Status:</b> Launched in Chrome 76<br>
-        <b>Last Updated:</b> July 3rd, 2019
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <a href="/web/updates/2018/12/web-share-target">Web Share Target</a>
-      </td>
-      <td>
-        The Web Share Target API allows installed web apps to register with
-        the underlying OS as a share target to receive shared content from
-        either the Web Share API or system events, like the OS-level share
-        button.
-        <br><br>
-        <b>Status:</b> Launched in Chrome 71<br>
-        <b>Last Updated:</b> December 5th, 2018
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<aside class="key-point">
-  <b>Want to try some of these new capabilities?</b> Check out the
-  <a href="https://codelabs.developers.google.com/codelabs/web-capabilities/">
-  Web Capabilities Codelab</a>.
+  To see a list of all the APIs that are currently in development, check
+  out <a href="https://web.dev/fugu-status/">https://web.dev/fugu-status/</a>
 </aside>
 
 ## How will we design & implement these new capabilities? {: #process }
@@ -237,6 +84,16 @@ developer trying to accomplish? Who would use it? How are they doing it today?
 And what problems or frustrations are fixed by this new capability. Typically,
 these come in as feature request from developers, frequently through [bugs filed
 on bugs.chromium.org](https://bugs.chromium.org/p/chromium/issues/list?can=2&q=Type%3DFeature).
+
+<aside class="note">
+  <b>Have a suggestion for a capability you think we should consider?</b>
+  Tell us about it by filing a <a href="https://goo.gl/qWhHXU">new feature
+  request</a>. Please be sure to include as much detail as you can, such as
+  the problem you're trying to solve, suggested use cases, and anything else
+  that might be helpful.
+</aside>
+
+<div class="clearfix"></div>
 
 ### Create an explainer
 

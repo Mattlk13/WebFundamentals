@@ -1,8 +1,8 @@
-project_path: /web/tools/_project.yaml
-book_path: /web/tools/_book.yaml
+project_path: /web/tools/chrome-devtools/_project.yaml
+book_path: /web/tools/chrome-devtools/_book.yaml
 description: Learn how to use Chrome and DevTools to find memory issues that affect page performance, including memory leaks, memory bloat, and frequent garbage collections.
 
-{# wf_updated_on: 2018-07-27 #}
+{# wf_updated_on: 2020-07-10 #}
 {# wf_published_on: 2015-04-13 #}
 {# wf_blink_components: Blink>MemoryAllocator,Platform>DevTools #}
 
@@ -170,7 +170,7 @@ nodes.
 
 Here's a simple example of detached DOM nodes. 
 
-    var detachedNodes;
+    var detachedTree;
     
     function create() {
       var ul = document.createElement('ul');
@@ -178,7 +178,7 @@ Here's a simple example of detached DOM nodes.
         var li = document.createElement('li');
         ul.appendChild(li);
       }
-      detachedNodes = ul;
+      detachedTree = ul;
     }
     
     document.getElementById('create').addEventListener('click', create);

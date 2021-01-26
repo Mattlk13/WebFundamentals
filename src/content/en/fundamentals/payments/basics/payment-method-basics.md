@@ -3,7 +3,7 @@ book_path: /web/fundamentals/_book.yaml
 description: Understanding how payment methods are specified in the Payment Request API is mandatory for you. Learn 2 types of payment methods and how to create your own.
 
 {# wf_published_on: 2018-09-10 #}
-{# wf_updated_on: 2019-02-22 #}
+{# wf_updated_on: 2019-07-31 #}
 {# wf_blink_components: Blink>Payments #}
 
 # Payment Method Basics {: .page-title }
@@ -23,9 +23,9 @@ to process a payment, and can be thought of somewhat like "plugins" for the
 Payment Request API. Each payment method consists of a required payment method
 identifier and an optional detail parameter.
 
-In the following example we declare two payment methods: one that can process
-Visa, Mastercard, and JCB cards via `basic-card`; and an Android app called BobPay
-built to integrate with the Payment Request API via the URL
+In the following example, we declare three payment methods: one that can process
+Visa, Mastercard, and JCB cards via `basic-card`; Google Pay; and an Android app
+called BobPay built to integrate with the Payment Request API via the URL
 `https://bobpay.xyz/pay`.
 
 ```javascript
@@ -48,7 +48,7 @@ When the Payment Request UI is displayed to a customer during checkout, they see
 a subset of the payment methods specified by the merchant. The subset displayed
 to the user consists of all the payment methods available to the user on this
 device. The customer can select one of the methods to use for payment, as shown
-here.
+here:
 
 <img src="../images/payment-method-basics/payment-methods.png" />
 
@@ -72,7 +72,7 @@ is not the future of web payments.
 
 There is a [registry of standardized payment
 methods](https://w3c.github.io/payment-method-id/#registry) in the spec, but
-there are other standardization candidates under active discussion.
+there are other standardization candidates under active discussion:
 
 *   [Basic Credit Transfer
     Payment](https://w3c.github.io/payment-method-credit-transfer/)
@@ -145,7 +145,6 @@ data: {
 * [Google Pay (`https://google.com/pay`)](/pay/api/web/)
 * [Apple Pay (`https://apple.com/apple-pay`)](https://developer.apple.com/documentation/apple_pay_on_the_web)
 * [Samsung Pay (`https://spay.samsung.com`)](https://developer.samsung.com/internet/android/web-payments-guide)
-* [Facebook (`fb`)](https://developers.facebook.com/docs/messenger-platform/reference/messenger-extensions-sdk/PaymentRequest/)
 
 Note: Send [pull requests](https://github.com/google/WebFundamentals/pulls) to
 us if your payment app supports Payment Request API but is not listed here.

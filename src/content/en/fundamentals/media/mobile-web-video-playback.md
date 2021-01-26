@@ -3,7 +3,7 @@ book_path: /web/fundamentals/_book.yaml
 description: Create the best mobile media experience on the Web by following these best practises.
 
 {# wf_published_on: 2017-04-07 #}
-{# wf_updated_on: 2018-09-20 #}
+{# wf_updated_on: 2021-01-26 #}
 {# wf_blink_components: Blink>Media #}
 
 # Mobile Web Video Playback {: .page-title }
@@ -140,7 +140,7 @@ visible.
         videoCurrentTime.textContent = secondsToTimeCode(video.currentTime);
         videoProgressBar.style.transform = `scaleX(${video.currentTime / video.duration})`;
       }
-    }
+    });
 
 When the video ends, we simply change button state to "play", set video
 `currentTime` back to 0 and show video controls for now. Note that we could

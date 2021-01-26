@@ -1,7 +1,7 @@
 project_path: /web/fundamentals/_project.yaml
 book_path: /web/fundamentals/_book.yaml
 
-{# wf_updated_on: 2018-08-17 #}
+{# wf_updated_on: 2020-07-24 #}
 {# wf_published_on: 2018-02-22 #}
 {# wf_blink_components: Blink>Network,Internals>Network>HTTP2 #}
 
@@ -33,7 +33,7 @@ separate files during testing. Those are all valid reasons to have multiple reso
 But because each file requires its own HTTP request, and each request takes time, we can speed
 up page load by combining files; one request instead of three or four will certainly save
 time. At first blush, this seems like a no-brainer -- just put all the CSS (for example) into
-a master stylesheet and then remove all but one <link> from the page. Every extra file you
+a primary stylesheet and then remove all but one <link> from the page. Every extra file you
 eliminate in this way removes one HTTP request and saves round-trip time. But there are caveats.
 
 For Cascading Style Sheets, beware the "C". Cascade precedence allows later rules to override
@@ -41,11 +41,11 @@ earlier ones without warning -- literally. CSS doesn't throw an error when a pre
 property is reset by a more recent rule, so just tossing stylesheets together is asking for
 trouble. Instead, look for conflicting rules and determine whether one should always supersede
 the other, or if one should use more specific selectors to be applied properly. For example,
-consider these two simple rules, the first from a master stylesheet, the second imported from
+consider these two simple rules, the first from a primary stylesheet, the second imported from
 a stylesheet provided by Marketing.
 
 ```
-h2 { font-size: 1em; color: #000080; } /* master stylesheet */
+h2 { font-size: 1em; color: #000080; } /* primary stylesheet */
 
 . . .
 
@@ -151,7 +151,7 @@ navigation icons or function buttons, for example -- it could save you many, man
 to the server.
 
 You can find a brief but excellent article about this technique, including working examples,
-at [WellStyled](http://wellstyled.com/css-nopreload-rollovers.html).
+at [WellStyled](https://wellstyled.com/css-nopreload-rollovers.html).
 
 ## A Caveat
 
@@ -186,7 +186,7 @@ Common convention is to put script blocks in the page head. The problem with thi
 is that, typically, little to none of the script is really meant to execute until the page is
 displayed but, while it is loading, it unnecessarily blocks page rendering. Identifying
 render-blocking script is one of the reporting rules of
-[PageSpeed Insights](speed/docs/insights/BlockingJS).
+[PageSpeed Insights](/speed/docs/insights/BlockingJS).
 
 A simple and effective solution is to reposition the deferred script block at the end of the
 page. That is, put the script reference last, just before the closing body tag. This allows

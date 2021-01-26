@@ -2,7 +2,7 @@ project_path: /web/fundamentals/_project.yaml
 book_path: /web/fundamentals/_book.yaml
 description: A picture is worth 1000 words, and images play an integral part of every page. But they also often account for most of the downloaded bytes.  With responsive web design not only can our layouts change based on device characteristics, but images as well.
 
-{# wf_updated_on: 2018-12-15 #}
+{# wf_updated_on: 2020-07-24 #}
 {# wf_blink_components: Blink>Image #}
 {# wf_published_on: 2014-04-29 #}
 
@@ -216,38 +216,38 @@ browser would choose:
     <tr>
       <td data-th="Browser width">400px</td>
       <td data-th="Device pixel ratio">1</td>
-      <td data-th="Image used"><code>200.png</code></td>
+      <td data-th="Image used"><code>200.jpg</code></td>
       <td data-th="Effective resolution">1x</td>
     </tr>
     <tr>
       <td data-th="Browser width">400px</td>
       <td data-th="Device pixel ratio">2</td>
-      <td data-th="Image used"><code>400.png</code></td>
+      <td data-th="Image used"><code>400.jpg</code></td>
       <td data-th="Effective resolution">2x</td>
     </tr>
     <tr>
       <td data-th="Browser width">320px</td>
       <td data-th="Device pixel ratio">2</td>
-      <td data-th="Image used"><code>400.png</code></td>
+      <td data-th="Image used"><code>400.jpg</code></td>
       <td data-th="Effective resolution">2.5x</td>
     </tr>
     <tr>
       <td data-th="Browser width">600px</td>
       <td data-th="Device pixel ratio">2</td>
-      <td data-th="Image used"><code>800.png</code></td>
+      <td data-th="Image used"><code>800.jpg</code></td>
       <td data-th="Effective resolution">2.67x</td>
     </tr>
     <tr>
       <td data-th="Browser width">640px</td>
       <td data-th="Device pixel ratio">3</td>
-      <td data-th="Image used"><code>1000.png</code></td>
+      <td data-th="Image used"><code>1000.jpg</code></td>
       <td data-th="Effective resolution">3.125x</td>
     </tr>
     <tr>
       <td data-th="Browser width">1100px</td>
       <td data-th="Device pixel ratio">1</td>
-      <td data-th="Image used"><code>1400.png</code></td>
-      <td data-th="Effective resolution">1.27x</td>
+      <td data-th="Image used"><code>800.png</code></td>
+      <td data-th="Effective resolution">1.45x</td>
     </tr>
   </tbody>
 </table>
@@ -471,8 +471,7 @@ one single request.
 
 On the downside:
 
-* On mobile, Data URIs can be
-  [significantly slower](https://www.mobify.com/blog/data-uris-are-slow-on-mobile/)
+* On mobile, Data URIs can be significantly slower
   to display on mobile than images from an external <code>src</code>.
 * Data URIs can considerably increase the size of an HTML request.
 * They add complexity to your markup and your workflow.
@@ -758,7 +757,7 @@ Start with these guidelines when choosing the appropriate format:
 You can reduce image file size considerably by "post-processing" the images
 after saving. There are a number of tools for image compression&mdash;lossy and
 lossless, online, GUI, command line.  Where possible, it's best to try
-automating image optimization so that it's a first-class citizen in your
+automating image optimization so that it's a built-in to your
 workflow.
 
 Several tools are available that perform further, lossless compression on `JPG`

@@ -1,8 +1,8 @@
-project_path: /web/tools/_project.yaml
-book_path: /web/tools/_book.yaml
+project_path: /web/tools/chrome-devtools/_project.yaml
+book_path: /web/tools/chrome-devtools/_book.yaml
 description:请遵循此互动指南，了解如何使用 DevTools 诊断强制同步布局。
 
-{# wf_updated_on: 2016-03-31 #}
+{# wf_updated_on: 2020-07-10 #}
 {# wf_published_on: 2015-04-13 #}
 
 # 诊断强制同步布局 {: .page-title }
@@ -96,7 +96,7 @@ Note: 这是您之前启用 **JS Profile** 选项的作用。
 
 ![Sources 面板中的函数定义](imgs/definition.png)
 
-`update()` 函数是 `requestAnimationCallback()` 的回调处理程序。
+`update()` 函数是 `requestAnimationFrame()` 的回调处理程序。
 处理程序会根据每个图像的 `offsetTop` 值计算其 `left` 属性。
 这将强制浏览器立即执行新布局，以便确保其提供正确的值。在每个动画帧期间强制布局是导致页面上出现动画卡顿的原因。
 

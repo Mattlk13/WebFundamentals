@@ -3,7 +3,7 @@ book_path: /web/fundamentals/_book.yaml
 description: Content Security Policy can significantly reduce the risk and impact of cross-site scripting attacks in modern browsers.
 
 {# wf_published_on: 2012-06-15 #}
-{# wf_updated_on: 2019-01-21 #}
+{# wf_updated_on: 2020-06-19 #}
 {# wf_blink_components: Blink>SecurityFeature #}
 
 # Content Security Policy {: .page-title }
@@ -35,13 +35,13 @@ This overview highlights a defense that can significantly reduce the risk and
 impact of XSS attacks in modern browsers: Content Security Policy (CSP).
 
 ### TL;DR {: .hide-from-toc }
-* Use whitelists to tell the client what's allowed and what isn't.
+* Use allowlists to tell the client what's allowed and what isn't.
 * Learn what directives are available.
 * Learn the keywords they take.
 * Inline code and `eval()` are considered harmful.
 * Report policy violations to your server before enforcing them.
 
-## Source whitelists
+## Source allowlists
 
 
 The issue exploited by XSS attacks is the browser's inability to distinguish
@@ -55,10 +55,10 @@ probably isn't. The browser happily downloads and executes any code a page
 requests, regardless of source.
 
 Instead of blindly trusting _everything_ that a server delivers, CSP defines the
-`Content-Security-Policy` HTTP header, which allows you to create a whitelist of
+`Content-Security-Policy` HTTP header, which allows you to create an allowlist of
 sources of trusted content, and instructs the browser to only execute or render
 resources from those sources. Even if an attacker can find a hole through which
-to inject script, the script won't match the whitelist, and therefore won't be
+to inject script, the script won't match the allowlist, and therefore won't be
 executed.
 
 Since we trust `apis.google.com` to deliver valid code, and we trust ourselves
@@ -228,13 +228,13 @@ an `http-equiv` attribute:
     <meta http-equiv="Content-Security-Policy" content="default-src https://cdn.example.net; child-src 'none'; object-src 'none'">
 
 
-This can't be used for frame-ancestors, report-uri, or sandbox.
+This can't be used for `frame-ancestors`, `report-uri`, or `sandbox`.
 
 ## Inline code is considered harmful
 
-It should be clear that CSP is based on whitelisting origins, as that's an
+It should be clear that CSP is based on allowlist origins, as that's an
 unambiguous way of instructing the browser to treat specific sets of resources
-as acceptable and to reject the rest. Origin-based whitelisting doesn't,
+as acceptable and to reject the rest. Origin-based allowlists don't,
 however, solve the biggest threat posed by XSS attacks: inline script injection.
 If an attacker can inject a script tag that directly contains some malicious
 payload (<code>&lt;script&gt;sendMyDataToEvilDotCom();&lt;/script&gt;</code>),
@@ -291,8 +291,9 @@ clever](https://scarybeastsecurity.blogspot.com/2009/12/generic-cross-browser-cr
 data exfiltration methods that CSS enables.
 
 If you must have inline script and style, you can enable it
-by adding `'unsafe-inline'` as an allowed source in a `script-src` or `style-
-src` directive. You can also use a nonce or a hash (see below), but you really shouldn't. Banning inline script is the biggest security win CSP provides, and
+by adding `'unsafe-inline'` as an allowed source in a `script-src` or `style-src`
+directive. You can also use a nonce or a hash (see below), but you really shouldn't.
+Banning inline script is the biggest security win CSP provides, and
 banning inline style likewise hardens your application. It's a little bit of
 effort up front to ensure that things work correctly after moving all the code
 out-of-line, but that's a tradeoff that's well worth making.
@@ -300,7 +301,7 @@ out-of-line, but that's a tradeoff that's well worth making.
 ### If you absolutely must use it ...
 
 CSP Level 2 offers backward compatibility for inline scripts by allowing you to
-whitelist specific inline scripts using either a cryptographic nonce (number
+add specific inline scripts to the allowlist using either a cryptographic nonce (number
 used once) or a hash. Although this may be cumbersome, it is useful
 in a pinch.
 
@@ -308,8 +309,8 @@ To use a nonce, give your script tag a nonce attribute. Its value must match one
 in the list of trusted sources. For example:
 
 
-    <script nonce=EDNnf03nceIOfn39fn3e9h3sdfa>
-      //Some inline code I cant remove yet, but need to asap.
+    <script nonce="EDNnf03nceIOfn39fn3e9h3sdfa">
+      // Some inline code I can't remove yet, but need to asap.
     </script>
 
 
@@ -333,8 +334,8 @@ Your policy would contain this:
     Content-Security-Policy: script-src 'sha256-qznLcsROx4GACP2dm0UCKCzCG-HiZ1guq6ZZDob_Tng='
 
 There are a few things to note here. The `sha*-` prefix specifies the algorithm
-that generates the hash. In the example above, sha256- is used. CSP also
-supports sha384- and sha512-. When generating the hash do not include the
+that generates the hash. In the example above, `sha256-` is used. CSP also
+supports `sha384-` and `sha512-`. When generating the hash, do not include the
 `<script>` tags. Also capitalization and whitespace matter, including leading or
 trailing whitespace.
 

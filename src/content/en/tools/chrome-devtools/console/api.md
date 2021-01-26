@@ -1,8 +1,8 @@
-project_path: /web/tools/_project.yaml
-book_path: /web/tools/_book.yaml
+project_path: /web/tools/chrome-devtools/_project.yaml
+book_path: /web/tools/chrome-devtools/_book.yaml
 description: Use the Console API to write messages to the Console.
 
-{# wf_updated_on: 2019-04-18 #}
+{# wf_updated_on: 2020-07-10 #}
 {# wf_published_on: 2016-03-21 #}
 {# wf_blink_components: Platform>DevTools #}
 
@@ -78,9 +78,9 @@ Resets a count.
 
 ## console.debug(object [, object, ...]) {: #debug }
 
-[Log level][level]: `Info`
+[Log level][level]: `Verbose`
 
-Identical to [`console.log(object [, object, ...])`](#log).
+Identical to [`console.log(object [, object, ...])`](#log) except different log level.
 
     console.debug('debug');
 

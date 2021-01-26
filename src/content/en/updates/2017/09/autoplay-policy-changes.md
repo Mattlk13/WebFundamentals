@@ -2,7 +2,7 @@ project_path: /web/_project.yaml
 book_path: /web/updates/_book.yaml
 description: Learn best practices for good user experiences with the new autoplay policies in Chrome, coming April 2018.
 
-{# wf_updated_on: 2018-10-09 #}
+{# wf_updated_on: 2020-07-22 #}
 {# wf_published_on: 2017-09-13 #}
 {# wf_tags: autoplay,news,media #}
 {# wf_featured_image: /web/updates/images/generic/play-outline.png #}
@@ -57,7 +57,8 @@ Chrome's autoplay policies are simple:
     - User has interacted with the domain (click, tap, etc.).
     - On desktop, the user's [Media Engagement Index](#mei) threshold has been crossed,
       meaning the user has previously played video with sound.
-    - On mobile, the user has [added the site to their home screen].
+    - The user has [added the site to their home screen] on mobile or
+      [installed the PWA] on desktop.
 - Top frames can [delegate autoplay permission](#iframe) to their iframes to
   allow autoplay with sound.
 
@@ -93,17 +94,16 @@ User's MEI is available at the <i>chrome://media-engagement</i> internal page.
 As a developer, you may want to change Chrome autoplay policy behavior locally
 to test your website depending on user engagement.
 
-- You can decide to disable entirely the autoplay policy by setting the Chrome
-  flag "Autoplay Policy" to "No user gesture is required" at
-  `chrome://flags/#autoplay-policy`. This allows you to test your website as if
-  user were strongly engaged with your site and playback autoplay would be
-  always allowed.
+- You can disable entirely the autoplay policy by using an [internal switch]
+  with `chrome.exe --autoplay-policy=no-user-gesture-required`.
+  This allows you to test your website as if user were strongly engaged with
+  your site and playback autoplay would be always allowed.
 
 - You can also decide to make sure playback autoplay is never allowed by
   disabling use of MEI, applying autoplay policy to Web Audio, and whether
   sites with the highest overall MEI get playback autoplay by default for new
   users. This can be done with three [internal switches] with `chrome.exe
-  --disable-features=PreloadMediaEngagementData,AutoplayIgnoreWebAudio,
+  --disable-features=PreloadMediaEngagementData,
   MediaEngagementBypassAutoplayPolicies`.
 
 ### Iframe delegation {: #iframe }
@@ -257,10 +257,6 @@ asynchronously.
 For info, checkout the small [Pull Request] that fixes Web Audio playback due to
 these autoplay policy changes for [https://airhorner.com].
 
-By default, the Web Audio API is not currently affected by the autoplay policy.
-To enable the autoplay policy for Web Audio, launch Chrome with the following
-[internal switch]: `chrome.exe --disable-features=AutoplayIgnoreWebAudio`.
-
 Note: Web Audio FAQs can be found [here].
 
 ## Feedback {: .hide-from-toc }
@@ -274,6 +270,7 @@ Note: Web Audio FAQs can be found [here].
 ["AutoplayWhitelist"]: http://dev.chromium.org/administrators/policy-list-3#AutoplayWhitelist
 [noticed]: https://webkit.org/blog/7734/auto-play-policy-changes-for-macos/
 [added the site to their home screen]: /web/updates/2017/02/improved-add-to-home-screen
+[installed the PWA]: /web/progressive-web-apps/desktop
 [Promise]: /web/fundamentals/getting-started/primers/promises
 [rejected]: /web/updates/2017/06/play-request-was-interrupted
 [200x140]: https://chromium.googlesource.com/chromium/src/+/1c63b1b71d28851fc495fdee9a2c724ea148e827/chrome/browser/media/media_engagement_contents_observer.cc#38

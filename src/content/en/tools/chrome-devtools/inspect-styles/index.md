@@ -1,9 +1,9 @@
-project_path: /web/tools/_project.yaml
-book_path: /web/tools/_book.yaml
+project_path: /web/tools/chrome-devtools/_project.yaml
+book_path: /web/tools/chrome-devtools/_book.yaml
 description: Inspect and edit the HTML and CSS of your pages.
 robots: noindex
 
-{# wf_updated_on: 2019-07-11 #}
+{# wf_updated_on: 2020-12-14 #}
 {# wf_published_on: 2015-04-13 #}
 {# wf_blink_components: Platform>DevTools #}
 
@@ -34,7 +34,7 @@ the Chrome DevTools Elements panel.
 To live-edit a DOM node, simply double-click a 
 [selected element](#inspect-an-element) and make changes:
 
-<video src="animations/edit-element-name.mp4" style="max-width:100%;"
+<video src="animations-img/edit-element-name.mp4" style="max-width:100%;"
        loop muted autoplay controls></video>
 
 The DOM tree view shows the current state of the tree; it may not match 
@@ -87,7 +87,7 @@ positioning specifics.
 
 ## View local changes
 
-<video src="animations/revisions.mp4" style="max-width:100%;"
+<video src="animations-img/revisions.mp4" style="max-width:100%;"
        autoplay loop muted controls></video>
 
 To view a history of live-edits made to your page:

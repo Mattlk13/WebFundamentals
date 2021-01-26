@@ -1,8 +1,8 @@
-project_path: /web/tools/_project.yaml
-book_path: /web/tools/_book.yaml
+project_path: /web/tools/chrome-devtools/_project.yaml
+book_path: /web/tools/chrome-devtools/_book.yaml
 description: A tutorial on the most popular network-related features in Chrome DevTools.
 
-{# wf_updated_on: 2019-02-13 #}
+{# wf_updated_on: 2020-07-10 #}
 {# wf_published_on: 2019-02-08 #}
 {# wf_blink_components: Platform>DevTools #}
 
@@ -522,7 +522,7 @@ to find out:
        <img src="/web/tools/chrome-devtools/network-performance/imgs/tutorial/addblock.png"
             alt="Blocking main.css"/>
        <figcaption>
-         <b>Figure 32</b>. Blocking <code>main.css</code></main>
+         <b>Figure 32</b>. Blocking <code>main.css</code>
        </figcaption>
      </figure>
 

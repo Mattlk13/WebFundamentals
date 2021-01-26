@@ -46,7 +46,7 @@ const MAX_FILES_CHANGED_ERROR = 1000; // Max # of files changed before error
 const MD_FILES = ['.md', '.mdown', '.markdown'];
 const EXTENSIONS_TO_SKIP = ['.css', '.vtt', '.xml', '.txt'];
 const MEDIA_FILES = [
-  '.gif', '.ico', '.jpg', '.png', '.psd', '.svg',
+  '.gif', '.ico', '.jpg', '.png', '.psd', '.svg', '.webp', '.avif',
   '.mov', '.mp3', '.mp4', '.webm',
   '.pdf',
 ];
@@ -277,7 +277,10 @@ function getFiles() {
           globs.push(`${lang}/**/*`);
         });
       }
+      // Skip Puppeteer docs
       globs.push('!en/tools/puppeteer/_src/**/*');
+      // Skip any _README.MD files
+      globs.push('!_README.MD');
       resolve(glob.find(globs, opts));
     });
   } else {
@@ -415,7 +418,8 @@ function testFile(filename, opts) {
   }
 
   // Check _book.yaml & _toc.yaml files
-  if (filenameObj.base === '_book.yaml' || filenameObj.base === '_toc.yaml') {
+  if (filenameObj.base === '_book.yaml' ||
+      filenameObj.base.endsWith('_toc.yaml')) {
     return validateYaml.test(filename, contents)
       .then((parsed) => testBook.test(filename, parsed));
   }
